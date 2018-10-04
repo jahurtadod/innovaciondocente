@@ -30,7 +30,7 @@
           </div>
         </div>
     </header>
-    <Cards />ß
+    <Cards />
     <CafeCientifico />
     <LiiD :liid='indexData.liid'
           :project='indexData.project' />
