@@ -34,7 +34,7 @@
     <CafeCientifico />
     <LiiD :liid='indexData.liid'
           :project='indexData.project' />
-    <QuienesSomos />
+    <QuienesSomos :quienesSomos="indexData['quienes-somos']" />
     <Suscripcion title="Suscríbete"
                  description="Obtenga las últimas noticias de Innovación UTPL entregadas en su bandeja de entrada." />
     <FooterIndex />
