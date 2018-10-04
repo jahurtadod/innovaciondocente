@@ -1,42 +1,42 @@
 <template>
   <div>
-    <header class="header">
+    <header class="header"
+            v-if="indexData.banner">
       <div class="header-overlay"></div>
       <div class="fondo">
         <img class="img-move"
-             :src="data.banner"
+             :src="indexData.banner"
              alt="">
       </div>
-      <div class="header-content">
-        <h1>Proyecto Ascendere</h1>
-        <p>Innovación
-          <span>|</span> Formación
-          <span>|</span> Evaluación</p>
-        <div @click="pageScroll()"
-             id="arrow">
-          <a href="#"
-             class="arrow arrow-1">
-            <span>arrow</span>
-          </a>
-          <a href="#"
-             class="arrow arrow-2">
-            <span>arrow</span>
-          </a>
-          <a href="#"
-             class="arrow arrow-3">
-            <span>arrow</span>
-          </a>
+        <div class="header-content">
+          <h1>Proyecto Ascendere</h1>
+          <p>Innovación
+            <span>|</span> Formación
+            <span>|</span> Evaluación</p>
+          <div @click="pageScroll()"
+               id="arrow">
+            <a href="#"
+               class="arrow arrow-1">
+              <span>arrow</span>
+            </a>
+            <a href="#"
+               class="arrow arrow-2">
+              <span>arrow</span>
+            </a>
+            <a href="#"
+               class="arrow arrow-3">
+              <span>arrow</span>
+            </a>
+          </div>
         </div>
-      </div>
     </header>
-    <Cards/>
-    <CafeCientifico/>
-    <LiiD/>
-    <QuienesSomos/>
+    <Cards />
+    <CafeCientifico />
+    <LiiD />
+    <QuienesSomos />
     <Suscripcion title="Suscríbete"
-                 description="Obtenga las últimas noticias de Innovación UTPL entregadas en su bandeja de entrada."
-    />
-    <FooterIndex/>
+                 description="Obtenga las últimas noticias de Innovación UTPL entregadas en su bandeja de entrada." />
+    <FooterIndex />
   </div>
 </template>
 <script>
@@ -47,16 +47,15 @@ import LiiD from "@/components/Index/Liid";
 import QuienesSomos from "@/components/Index/QuienesSomos";
 import FooterIndex from "@/components/Index/FooterIndex";
 import Suscripcion from "@/components/Suscripcion";
-import axios from "axios";
+
+import { IndexDocument } from "~/plugins/firebase.js";
 
 export default {
   layout: "empty",
   async asyncData() {
-    let { data } = await axios.get(
-      `https://innovaciondocente-utpl.firebaseio.com/index.json`
-    );
+    const indexSnap = await IndexDocument.get();
     return {
-      data
+      indexData: indexSnap.data()
     };
   },
   methods: {
@@ -78,13 +77,11 @@ export default {
   },
   head() {
     return {
-      title: "Innovación Docente",
       meta: [
         {
           hid: "description",
           name: "description",
-          content:
-            "El Laboratorio de Investigación e Innovación Docente Educativa es un espacio orientado al desarrollo de la innovación e investigación educativa a nivel local, nacional e internacional."
+          content: this.indexData.description
         }
       ]
     };
