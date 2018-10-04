@@ -1,25 +1,25 @@
 <template>
-  <section>
-    <div class="container we-team">
-      <div class="row">
-        <img src="~/static/sello.png"
-             alt="logo">
-        <h1>PROYECTO ASCENDERE</h1>
-      </div>
-    </div>
+  <div>
     <div class="parallax"
          :style="'background-image: url('+data.banner+');'">
     </div>
-    <section class="container">
-      <section class="row">
-        <section class="container">
+    <div class="container">
+      <div class="row">
+        <div class="container we-team">
+          <div class="row">
+            <img src="~/static/sello.png"
+                 alt="logo">
+            <h1>PROYECTO ASCENDERE</h1>
+          </div>
+        </div>
+        <div class="container">
           <div class="section-text">
             <h2>Innovando Cambios</h2>
             <p>
               {{data.description}}
             </p>
           </div>
-          <section class="row">
+          <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
               <figure class="column-img">
                 <img :src="data.maria"
@@ -60,7 +60,7 @@
                 </figcaption>
               </figure>
             </div>
-          </section>
+          </div>
           <div class="section-text">
             <h2>InDevelomenpt Company</h2>
             <p>
@@ -90,10 +90,10 @@
               <a href="#"></a>
             </figure>
           </div>
-        </section>
-      </section>
-    </section>
-  </section>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import { QuienesSomosDocument } from "~/plugins/firebase.js";
@@ -126,29 +126,30 @@ p {
   column-gap: 2.25rem;
   line-height: 2.25;
 }
-section {
-  padding-bottom: 20px;
-}
 .parallax {
-  height: 70vh !important;
+  height: 70vh;
 }
 .section-text {
-  padding: 1rem 8rem 1rem 8rem;
+  padding: 2rem 8rem 1rem 8rem;
   h2 {
     text-align: center;
   }
 }
 .we-team {
-  text-align: center;
-  height: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100%;
+  border-bottom: 1px #e1e4e8 solid;
   img {
-    height: 150px;
-    width: 150px;
+    height: 100px;
+    width: 100px;
   }
   h1 {
+    font-size: 200%;
     margin: 0;
     padding: 1rem;
-    border-left: 2px $color-warning solid;
+    border-left: 1px $color-warning solid;
   }
 }
 .row {
@@ -157,6 +158,8 @@ section {
   justify-content: center;
   text-align: center;
   align-content: center;
+  background-color: $color-secondary;
+  padding: 18px 18px 36px 18px;
 }
 figure.column-img {
   position: relative;
@@ -237,6 +240,14 @@ figure.column-img {
   }
   .section-text {
     padding: 1rem 1rem 1rem 1rem;
+  }
+}
+@media (min-width: 768px) {
+  h1 {
+    font-size: 200%;
+    margin: 0;
+    padding: 1rem;
+    border-left: 1px #333 solid;
   }
 }
 </style>
