@@ -27,7 +27,7 @@
           </div>
           <div class="col-md-12 footer-icons networks">
             <div class="social-networks-index square spin-icon">
-              <ul>
+              <ul class="social-networks">
                 <li>
                   <a href="https://www.facebook.com/LiiDUTPL"
                      target="_blank"
@@ -94,6 +94,9 @@
 
 <style lang="scss" scoped>
 @import "assets/variables";
+.social-networks {
+  padding-left: 0 !important;
+}
 .footer-index {
   padding: 2rem;
   .footer-outro {

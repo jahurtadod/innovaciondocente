@@ -65,8 +65,8 @@ export default {
 }
 .img-avatar {
   vertical-align: middle;
-  width: 70px;
-  height: 70px;
+  width: 85px;
+  height: 85px;
   border-radius: 50%;
   margin: 10px;
 }

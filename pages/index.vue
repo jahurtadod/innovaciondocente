@@ -192,6 +192,7 @@ p {
   width: 24px;
   height: 24px;
   margin-left: -12px;
+  cursor: pointer;
   border-left: 1px solid $color-warning;
   border-bottom: 1px solid $color-secondary;
   -webkit-transform: rotate(-45deg);
