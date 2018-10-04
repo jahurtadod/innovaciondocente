@@ -16,7 +16,7 @@
           <div class="section-text">
             <h2>Innovando Cambios</h2>
             <p>
-              {{data.innovando}}
+              {{data.description}}
             </p>
           </div>
           <section class="row">
@@ -28,7 +28,6 @@
                   <h5>Dirección de Innovación, Formación y Evaluación Docente</h5>
                   <h3>PhD. María Isabel Loaiza</h3>
                 </figcaption>
-                <a href="#"></a>
               </figure>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -39,7 +38,6 @@
                   <h5>Formación Docente</h5>
                   <h3>Ing. Nuve Briceño</h3>
                 </figcaption>
-                <a href="#"></a>
               </figure>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -50,7 +48,6 @@
                   <h5>Innovación Docente</h5>
                   <h3>Mgtr. Angela Salazar</h3>
                 </figcaption>
-                <a href="#"></a>
               </figure>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -61,24 +58,27 @@
                   <h5>Evaluación Docente</h5>
                   <h3>Mgtr. Lourdes Cueva</h3>
                 </figcaption>
-                <a href="#"></a>
               </figure>
             </div>
           </section>
           <div class="section-text">
             <h2>InDevelomenpt Company</h2>
             <p>
-              Compañía de desarrollo de software fundada en 2018, por un grupo de estudiantes de la titulación de Ingeniería
-              en Sistemas Informáticos y Computación de la UTPL. Tras la intervención en el proyecto
-              Ascendere, nace el grupo con la visión de generar innovación mediante el uso de nuevas
-              tecnologías, cuya misión es incentivar a otros jóvenes a participar en los diferentes proyectos
+              Compañía de desarrollo de software fundada en 2018, por un grupo de estudiantes de la
+              titulación de Ingeniería
+              en Sistemas Informáticos y Computación de la UTPL. Tras la intervención en el
+              proyecto
+              Ascendere, nace el grupo con la visión de generar innovación mediante el uso de
+              nuevas
+              tecnologías, cuya misión es incentivar a otros jóvenes a participar en los diferentes
+              proyectos
               y actividades generados por las universidades.
             </p>
           </div>
           <div>
             <figure class="column-img">
-              <img :src="data.indev"
-                   alt="img-avatar" />
+              <img :src="data.indevTeam"
+                   alt="Indev Team" />
               <figcaption>
                 <h3>With
                   <a class="footer-heart"
@@ -96,14 +96,12 @@
   </section>
 </template>
 <script>
-import axios from "axios";
+import { QuienesSomosDocument } from "~/plugins/firebase.js";
 export default {
   async asyncData() {
-    let { data } = await axios.get(
-      `https://innovaciondocente-utpl.firebaseio.com/quienes-somos.json`
-    );
+    const dataSnap = await QuienesSomosDocument.get();
     return {
-      data
+      data: dataSnap.data()
     };
   },
   head() {
@@ -113,7 +111,7 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.data.innovando
+          content: this.data.description
         }
       ]
     };

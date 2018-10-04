@@ -30,7 +30,7 @@
           </div>
         </div>
     </header>
-    <Cards />
+    <Cards />ß
     <CafeCientifico />
     <LiiD :liid='indexData.liid'
           :project='indexData.project' />
@@ -41,6 +41,8 @@
   </div>
 </template>
 <script>
+import { IndexDocument } from "~/plugins/firebase.js";
+
 import Navbar from "@/components/Navbar";
 import Cards from "@/components/Index/Cards";
 import CafeCientifico from "@/components/Index/CafeCientifico";
@@ -48,8 +50,6 @@ import LiiD from "@/components/Index/Liid";
 import QuienesSomos from "@/components/Index/QuienesSomos";
 import FooterIndex from "@/components/Index/FooterIndex";
 import Suscripcion from "@/components/Suscripcion";
-
-import { IndexDocument } from "~/plugins/firebase.js";
 
 export default {
   layout: "empty",
@@ -78,6 +78,7 @@ export default {
   },
   head() {
     return {
+      title: "PROYECTO ASCENDERE",
       meta: [
         {
           hid: "description",
