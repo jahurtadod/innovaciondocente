@@ -32,7 +32,8 @@
     </header>
     <Cards />
     <CafeCientifico />
-    <LiiD />
+    <LiiD :liid='indexData.liid'
+          :project='indexData.project' />
     <QuienesSomos />
     <Suscripcion title="Suscríbete"
                  description="Obtenga las últimas noticias de Innovación UTPL entregadas en su bandeja de entrada." />
@@ -81,7 +82,7 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.indexData.description
+          content: this.indexData.descriptionindexData
         }
       ]
     };
