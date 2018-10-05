@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div class="parallax"
-         :style="'background-image: url('+data.banner+');'">
+    <div class="parallax">
     </div>
     <div class="container">
       <div class="row">
@@ -16,13 +15,13 @@
           <div class="section-text">
             <h2>Innovando Cambios</h2>
             <p>
-              {{data.description}}
+              {{description}}
             </p>
           </div>
           <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
               <figure class="column-img">
-                <img :src="data.maria"
+                <img src="https://firebasestorage.googleapis.com/v0/b/innovaciondocente-utpl.appspot.com/o/index%2FMI.jpg?alt=media&token=a7d1523d-a0f4-4f7e-bfb4-d07af5cb145c"
                      alt="img-avatar" />
                 <figcaption>
                   <h5>Dirección de Innovación, Formación y Evaluación Docente</h5>
@@ -32,7 +31,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
               <figure class="column-img">
-                <img :src="data.nuve"
+                <img src="https://firebasestorage.googleapis.com/v0/b/innovaciondocente-utpl.appspot.com/o/acerca-nosotros%2FNuve.jpg?alt=media&token=04299d85-7d07-4858-8d54-204ff1ef5705"
                      alt="img-avatar" />
                 <figcaption>
                   <h5>Formación Docente</h5>
@@ -42,7 +41,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
               <figure class="column-img">
-                <img :src="data.angela"
+                <img src="https://firebasestorage.googleapis.com/v0/b/innovaciondocente-utpl.appspot.com/o/acerca-nosotros%2FAngela.jpg?alt=media&token=7a376226-ff6d-487f-9f14-c480ffe4fbb7"
                      alt="img-avatar" />
                 <figcaption>
                   <h5>Innovación Docente</h5>
@@ -52,7 +51,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
               <figure class="column-img">
-                <img :src="data.lourdes"
+                <img src="https://firebasestorage.googleapis.com/v0/b/innovaciondocente-utpl.appspot.com/o/acerca-nosotros%2FLourdes.jpg?alt=media&token=0d6affea-bb7a-406c-b092-100cf67c4b8d"
                      alt="img-avatar" />
                 <figcaption>
                   <h5>Evaluación Docente</h5>
@@ -77,7 +76,7 @@
           </div>
           <div>
             <figure class="column-img">
-              <img :src="data.indevTeam"
+              <img src="https://images.unsplash.com/photo-1520127877998-122c33e8eb38?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7a45ca2052a4522614afac29c1d5ed5c&auto=format&fit=crop&w=749&q=80"
                    alt="Indev Team" />
               <figcaption>
                 <h3>With
@@ -96,12 +95,11 @@
   </div>
 </template>
 <script>
-import { QuienesSomosDocument } from "~/plugins/firebase.js";
 export default {
-  async asyncData() {
-    const dataSnap = await QuienesSomosDocument.get();
+  asyncData() {
     return {
-      data: dataSnap.data()
+      description:
+        '"Ascendere" evoca la consigna recuerda superarte siempre, para reafirmar el compromiso de la UTPL de contar con docentes que inspiren a sus alumnos, innovadores y vinculados con la práctica de su profesión y que se encuentren a la vanguardia de su disciplina. El Proyecto Ascendere es una iniciativa enmarcada en el Plan Estratégico de Desarrollo Institucional, que nace con el propósito de trabajar y agrupar aquellas iniciativas que potencien las competencias de los docentes a través de la innovación académica y la investigación en nuevas metodologías de educación y uso de las TIC.'
     };
   },
   head() {
@@ -111,7 +109,7 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.data.description
+          content: this.description
         }
       ]
     };
@@ -128,6 +126,7 @@ p {
 }
 .parallax {
   height: 70vh;
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/innovaciondocente-utpl.appspot.com/o/acerca-nosotros%2FIMG_7872.jpg?alt=media&token=05891cf4-6924-4584-b480-db4236f2fd1a);
 }
 .section-text {
   padding: 2rem 8rem 1rem 8rem;
