@@ -4,7 +4,6 @@
       <div class="row">
         <div class="col-md-2 footer-outro-icon">
           <img :src="'https://firebasestorage.googleapis.com/v0/b/innovaciondocente-utpl.appspot.com/o/icons%2Ficon.png?alt=media&token=fdc778de-c683-4f2c-86d1-42f1eeedbe5c'"
-        
                alt="icon-innova">
         </div>
         <div class="col-md-5 col-lg-4 col-xl-auto ">
@@ -97,6 +96,9 @@
 .social-networks {
   padding-left: 0 !important;
 }
+li {
+  color: #252525;
+}
 .footer-index {
   padding: 2rem;
   .footer-outro {
@@ -132,12 +134,13 @@
       border: 0;
       font-size: 92%;
       margin: 0;
+      color: #252525;
     }
     h3 {
       font-weight: bold;
     }
     .nav {
-      color: #7a7a7a;
+      color: #252525;
     }
   }
 }

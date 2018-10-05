@@ -4,14 +4,15 @@
       <h2>{{title}}</h2>
       <p class="auto-break">{{description}}</p>
       <div class="form-group">
-        <label for="mail" hidden>Suscribete</label>
+        <label for="email">Correo Electrónico</label>
         <input v-model="forma.email"
-               type="mail"
-               name="mail"
+               type="email"
+               id="email"
+               name="email"
                class="form-control"
-               placeholder="Correo Electrónico"
+               placeholder="correo@email.com"
                v-validate="'required|email'">
-        <span v-show="errors.has('mail')">Tiene que ser un email válido</span>
+        <span v-show="errors.has('email')">Tiene que ser un email válido</span>
       </div>
       <button @click="submit"
               v-bind:class="[{'btn-inverse':blue},{'btn-outline-primary':!blue}]"
