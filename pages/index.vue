@@ -83,7 +83,7 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.indexData.descriptionindexData
+          content: this.indexData.description
         }
       ]
     };

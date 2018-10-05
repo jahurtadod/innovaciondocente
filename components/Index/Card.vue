@@ -19,7 +19,8 @@
              v-if="nota.title">
           <a v-if="!nota.key.id"
              :href="nota.key.name"
-             target="_blank">{{nota.title | slice(0,40)}}</a>
+             target="_blank"
+             rel="noopener">{{nota.title | slice(0,40)}}</a>
           <nuxt-link v-if="nota.key.id"
                      :to="{name: nota.key.name, params: {id: nota.key.id}}">
             {{nota.title | slice(0,40)}}
@@ -31,7 +32,8 @@
         <div class="card_4__footer">
           <a v-if="!nota.key.id"
              :href="nota.key.name"
-             target="_blank">Leer más</a>
+             target="_blank"
+             rel="noopener">Leer más</a>
           <nuxt-link v-if="nota.key.id"
                      :to="{name: nota.key.name, params: {id: nota.key.id}}">
             Leer más
