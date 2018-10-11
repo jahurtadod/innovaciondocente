@@ -37,7 +37,7 @@
               <div class="card__desc">
                 <h4>{{curso.name | slice(0,50)}}</h4>
                 <small>
-                  <i class="fas fa-calendar-alt"></i> {{curso.date | date}}</small>
+                  <i class="fas fa-calendar-alt"></i> {{curso.date | dateTimestamp}}</small>
               </div>
             </div>
           </nuxt-link>
@@ -52,14 +52,18 @@
 </template>
 
 <script>
-import { CursosCollection } from "~/plugins/firebase.js";
+import { AFirestore } from "~/plugins/firebase.js";
 
 export default {
   data() {
     return { cursos: null };
   },
   async mounted() {
-    let cursosSnap = await CursosCollection.get();
+    let cursosSnap = await AFirestore.collection(
+      "formacion-docente/programa-formacion/cursos"
+    )
+      .orderBy("date", "desc")
+      .get();
     this.cursos = cursosSnap.docs.map(doc =>
       Object.assign({ id: doc.id }, doc.data())
     );

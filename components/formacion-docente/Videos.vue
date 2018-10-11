@@ -3,7 +3,6 @@
     <div class="container">
       <h2>Tips de Expertos</h2>
       <p class="auto-break">{{tips.description}}</p>
-      <br>
       <div class="row">
         <div class="col-xl-7 col-lg-8">
           <h3>#InnovaciónenlaUTPL</h3>

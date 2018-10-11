@@ -45,6 +45,7 @@ const EdutendenciasDocument = AFirestore
   .doc('edutendencias');
 const TipsCollection = EdutendenciasDocument.collection('tips');
 export {
+  AFirestore,
   IndexDocument,
   ProgramaFormacionDocument,
   CursosCollection,

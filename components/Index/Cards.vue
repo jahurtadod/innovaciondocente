@@ -88,19 +88,19 @@ export default {
           return;
         }
       });
-    let cursosSnap = await CursosCollection.limit(1).get();
-    cursosSnap.docs.map(doc => {
-      let curso = { id: doc.id, ...doc.data() };
-      let tempDate = curso.date.split("-");
-      this.curso.title = curso.name;
-      this.curso.date.full = curso.date;
-      this.curso.date.dia = tempDate[2];
-      this.curso.date.mes = tempDate[1];
-      this.curso.description = curso.description;
-      this.curso.img = curso.img;
-      this.curso.key.id = curso.id;
-      return;
-    });
+    // let cursosSnap = await CursosCollection.limit(1).get();
+    // cursosSnap.docs.map(doc => {
+    //   let curso = { id: doc.id, ...doc.data() };
+    //   let tempDate = curso.date.split("-");
+    //   this.curso.title = curso.name;
+    //   this.curso.date.full = curso.date;
+    //   this.curso.date.dia = tempDate[2];
+    //   this.curso.date.mes = tempDate[1];
+    //   this.curso.description = curso.description;
+    //   this.curso.img = curso.img;
+    //   this.curso.key.id = curso.id;
+    //   return;
+    // });
     const tipsSnap = await TipsExpertosCollection.limit(1).get();
     tipsSnap.docs.map(doc => {
       let tip = doc.data();

@@ -6,6 +6,18 @@ Vue.filter('slice', (val, start, end, txt) => {
     return val.slice(start, end) + ((txt == undefined) ? '...' : txt);
   return val;
 });
+Vue.filter('dateTimestamp', (val) => {
+  return new Date(val.seconds * 1000) // unix date
+    .toLocaleDateString(
+      'es-ES', // lang
+      {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      }
+    );
+});
 
 Vue.filter('date', val => {
   let parts = val.split('-');
