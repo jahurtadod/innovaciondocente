@@ -8,11 +8,14 @@
       </div>
 
       <!-- last encuentro -->
+      <hr>
       <div class="row"
            v-if="encuentro">
         <div class="col-md-6 section-text">
-          <hr>
           <h3>{{encuentro.name}}</h3>
+          <small>
+            {{encuentro.date | dateTimestamp}}
+          </small>
           <p class="auto-break">{{encuentro.description | slice(0,500) }}</p>
         </div>
         <div class="col-md-6">
@@ -80,7 +83,8 @@ export default {
   }
 }
 .section-text {
-  p {
+  p,
+  small {
     text-align: justify;
     padding: 10px;
   }
@@ -91,7 +95,7 @@ export default {
 }
 figure {
   overflow: hidden;
-  padding-top: 2rem;
+  padding-top: 1rem;
   padding-bottom: 50% !important;
   height: 0;
   margin: 0;
