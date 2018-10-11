@@ -13,7 +13,7 @@ Vue.filter('dateTimestamp', (val) => {
       {
         weekday: 'long',
         year: 'numeric',
-        month: 'short',
+        month: 'long',
         day: 'numeric'
       }
     );
