@@ -5,7 +5,7 @@
         {{title}}
       </h1>
     </header>
-    <div class="container-fluid">
+    <section class="container-fluid">
       <div class="row">
         <div v-for="tip in tips"
              :key="tip.id"
@@ -23,7 +23,7 @@
       </div>
       <button @click="$router.go(-1)"
               class="btn btn-outline-primary btn-large btn-sm">Regresar</button>
-    </div>
+    </section>
   </div>
 </template>
 
