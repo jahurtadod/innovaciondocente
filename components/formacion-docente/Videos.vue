@@ -32,7 +32,7 @@
           </div>
           <p class="auto-break">{{tip.description|slice(0,250)}}</p>
           <router-link class="btn btn-inverse btn-large"
-                       :to="{name: 'formacion-docente-programa-formacion-potencia-informacion'}">
+                       :to="{name: 'formacion-docente-programa-formacion-potencia-formacion'}">
             Tips de expertos
           </router-link>
         </div>
