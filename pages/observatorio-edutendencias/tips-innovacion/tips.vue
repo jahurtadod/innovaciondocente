@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <h1>{{title}}</h1>
+      <h1>Tips de Innovación</h1>
     </header>
     <section class="container">
       <div class="row"
@@ -22,20 +22,22 @@
 </template>
 
 <script>
-import { TipsCollection } from "~/plugins/firebase.js";
+import { AFirestore } from "~/plugins/firebase.js";
 import Card from "@/components/Index/Card";
 
 export default {
   async asyncData({ query }) {
     let cards = [];
     try {
-      let tipsSnap = await TipsCollection.where("tag", "==", query.tag)
+      const tipsSnap = await AFirestore.collection(
+        "observatorio/edutendencias/tips"
+      )
+        .where("tag", "==", query.tag)
         .orderBy("edited", "desc")
         .get();
       cards = tipsSnap.docs.map(doc => {
-        let tip = doc.data();
+        const tip = doc.data();
         return {
-          // key: doc.id,
           type: tip.tag,
           title: tip.name,
           description: tip.description,
@@ -45,16 +47,17 @@ export default {
           img: tip.img
         };
       });
-    } catch (error) {}
-    let title = "Tips de Innovación";
-    return { cards, title };
+    } catch (error) {
+      console.log(error);
+    }
+    return { cards };
   },
   components: {
     card: Card
   },
   head() {
     return {
-      title: this.title
+      title: "Tips de Innovación"
     };
   }
 };

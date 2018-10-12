@@ -54,17 +54,18 @@
 </template>
 
 <script>
-import { ProgramaFormacionDocument } from "~/plugins/firebase.js";
+import { AFirestore } from "~/plugins/firebase.js";
 import Cursos from "@/components/formacion-docente/Cursos";
 import Videos from "@/components/formacion-docente/Videos";
 export default {
   async asyncData() {
-    let programaFormacionData;
-    let programaFormacionSnap = await ProgramaFormacionDocument.get();
+    const programaFormacionSnap = await AFirestore.collection(
+      "formacion-docente"
+    )
+      .doc("programa-formacion")
+      .get();
     if (programaFormacionSnap.exists)
-      programaFormacionData = programaFormacionSnap.data();
-
-    return { ...programaFormacionData };
+      return { ...programaFormacionSnap.data() };
   },
   components: {
     Cursos,

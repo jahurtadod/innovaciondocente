@@ -43,14 +43,19 @@
 
 
 <script>
-import { TipsExpertosCollection } from "~/plugins/firebase.js";
+import { AFirestore } from "~/plugins/firebase.js";
 export default {
   props: ["tips"],
   data() {
     return { tip: null };
   },
   async mounted() {
-    const tipsSnap = await TipsExpertosCollection.limit(1).get();
+    const tipsSnap = await AFirestore.collection(
+      "formacion-docente/programa-formacion/tips"
+    )
+      .orderBy("added", "desc")
+      .limit(1)
+      .get();
     tipsSnap.docs.map(doc => (this.tip = { id: doc.id, ...doc.data() }));
   }
 };

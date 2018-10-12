@@ -8,27 +8,27 @@
              :src="indexData.banner"
              alt="">
       </div>
-        <div class="header-content">
-          <h1>Proyecto Ascendere</h1>
-          <p>Innovación
-            <span>|</span> Formación
-            <span>|</span> Evaluación</p>
-          <div @click="pageScroll()"
-               id="arrow">
-            <a href="#"
-               class="arrow arrow-1">
-              <span>arrow</span>
-            </a>
-            <a href="#"
-               class="arrow arrow-2">
-              <span>arrow</span>
-            </a>
-            <a href="#"
-               class="arrow arrow-3">
-              <span>arrow</span>
-            </a>
-          </div>
+      <div class="header-content">
+        <h1>Proyecto Ascendere</h1>
+        <p>Innovación
+          <span>|</span> Formación
+          <span>|</span> Evaluación</p>
+        <div @click="pageScroll()"
+             id="arrow">
+          <a href="#"
+             class="arrow arrow-1">
+            <span>arrow</span>
+          </a>
+          <a href="#"
+             class="arrow arrow-2">
+            <span>arrow</span>
+          </a>
+          <a href="#"
+             class="arrow arrow-3">
+            <span>arrow</span>
+          </a>
         </div>
+      </div>
     </header>
     <Cards />
     <CafeCientifico />
@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import { IndexDocument } from "~/plugins/firebase.js";
+import { AFirestore } from "~/plugins/firebase.js";
 
 import Navbar from "@/components/Navbar";
 import Cards from "@/components/Index/Cards";
@@ -54,7 +54,9 @@ import Suscripcion from "@/components/Suscripcion";
 export default {
   layout: "empty",
   async asyncData() {
-    const indexSnap = await IndexDocument.get();
+    const indexSnap = await AFirestore.collection("meta")
+      .doc("index")
+      .get();
     return {
       indexData: indexSnap.data()
     };

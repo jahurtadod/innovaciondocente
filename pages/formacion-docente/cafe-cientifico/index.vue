@@ -25,7 +25,7 @@
               </ul>
             </div>
             <div class="col-lg-7">
-              <small>{{ultimoEncuentro.date | dateTimestamp}}</small>
+              <small><i class="fas fa-calendar-alt"></i> {{ultimoEncuentro.date | dateTimestamp}}</small>
               <p class="no-mobile auto-break">{{ultimoEncuentro.description | slice(0,700)}}</p>
               <p class="no-desktop auto-break">{{ultimoEncuentro.description | slice(0,300)}}</p>
             </div>
@@ -86,28 +86,23 @@
 
 <script>
 import Suscripcion from "@/components/Suscripcion";
-import {
-  CafeCientificoDocument,
-  EncuentrosCollection
-} from "~/plugins/firebase.js";
+import { AFirestore } from "~/plugins/firebase.js";
 
 export default {
   async asyncData() {
-    let description;
-    let encuentros;
-
-    // load description
-    let descriptionSnap = await CafeCientificoDocument.get();
-    if (descriptionSnap.exists) {
-      description = descriptionSnap.data();
-    }
+    const description =
+      "Encuentro Café Científico es un evento en el que expertos y profesionales en diferentes campos, dialogan y problematizan sobre un tema actual de una forma diferente e informal. Su finalidad de escuchar opiniones diversas y realizar algunos postulados que contribuyan al trabajo posterior y que ayuden a fomentar inquietudes que despiertan una entretenida discusión.";
 
     // load encuentros
-    let querySnapshot = await EncuentrosCollection.get();
-    encuentros = querySnapshot.docs.map(doc =>
+    const querySnapshot = await AFirestore.collection(
+      "formacion-docente/cafe-cientifico/encuentros"
+    )
+      .orderBy("date", "desc")
+      .get();
+    const encuentros = querySnapshot.docs.map(doc =>
       Object.assign({ id: doc.id }, doc.data())
     );
-    return { ...description, encuentros };
+    return { description, encuentros };
   },
   methods: {
     scrollLeft() {

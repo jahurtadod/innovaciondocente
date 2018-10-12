@@ -19,10 +19,7 @@
 <script>
 import Card from "@/components/Index/Card";
 import axios from "axios";
-import {
-  CursosCollection,
-  TipsExpertosCollection
-} from "~/plugins/firebase.js";
+import { CursosCollection, AFirestore } from "~/plugins/firebase.js";
 
 export default {
   data() {
@@ -101,7 +98,12 @@ export default {
     //   this.curso.key.id = curso.id;
     //   return;
     // });
-    const tipsSnap = await TipsExpertosCollection.limit(1).get();
+    const tipsSnap = await AFirestore.collection(
+      "formacion-docente/programa-formacion/tips"
+    )
+      .orderBy("added", "desc")
+      .limit(1)
+      .get();
     tipsSnap.docs.map(doc => {
       let tip = doc.data();
       this.tips.title = tip.name;
