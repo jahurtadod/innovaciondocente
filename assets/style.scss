@@ -386,3 +386,7 @@ template {
 [hidden] {
   display: none !important;
 }
+
+.auto-break {
+  white-space: pre-wrap;
+}

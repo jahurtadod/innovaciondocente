@@ -1,84 +1,83 @@
 <template>
-  <section>
-    <div class="container we-team">
+  <div>
+    <div class="parallax">
+    </div>
+    <div class="container">
       <div class="row">
-        <img src="~/static/sello.png"
-             alt="logo">
-        <h1>PROYECTO ASCENDERE</h1>
-      </div>
-    </div>
-    <div class="parallax"
-         :style="'background-image: url('+data.banner+');'">
-    </div>
-    <section class="container">
-      <section class="row">
-        <section class="container">
+        <div class="container we-team">
+          <div class="row">
+            <img src="~/static/sello.png"
+                 alt="logo">
+            <h1>PROYECTO ASCENDERE</h1>
+          </div>
+        </div>
+        <div class="container">
           <div class="section-text">
             <h2>Innovando Cambios</h2>
             <p>
-              {{data.innovando}}
+              {{description}}
             </p>
           </div>
-          <section class="row">
+          <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
               <figure class="column-img">
-                <img :src="data.maria"
+                <img src="https://firebasestorage.googleapis.com/v0/b/innovaciondocente-utpl.appspot.com/o/index%2FMI.jpg?alt=media&token=a7d1523d-a0f4-4f7e-bfb4-d07af5cb145c"
                      alt="img-avatar" />
                 <figcaption>
                   <h5>Dirección de Innovación, Formación y Evaluación Docente</h5>
                   <h3>PhD. María Isabel Loaiza</h3>
                 </figcaption>
-                <a href="#"></a>
               </figure>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
               <figure class="column-img">
-                <img :src="data.nuve"
+                <img src="https://firebasestorage.googleapis.com/v0/b/innovaciondocente-utpl.appspot.com/o/acerca-nosotros%2FNuve.jpg?alt=media&token=04299d85-7d07-4858-8d54-204ff1ef5705"
                      alt="img-avatar" />
                 <figcaption>
                   <h5>Formación Docente</h5>
                   <h3>Ing. Nuve Briceño</h3>
                 </figcaption>
-                <a href="#"></a>
               </figure>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
               <figure class="column-img">
-                <img :src="data.angela"
+                <img src="https://firebasestorage.googleapis.com/v0/b/innovaciondocente-utpl.appspot.com/o/acerca-nosotros%2FAngela.jpg?alt=media&token=7a376226-ff6d-487f-9f14-c480ffe4fbb7"
                      alt="img-avatar" />
                 <figcaption>
                   <h5>Innovación Docente</h5>
                   <h3>Mgtr. Angela Salazar</h3>
                 </figcaption>
-                <a href="#"></a>
               </figure>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
               <figure class="column-img">
-                <img :src="data.lourdes"
+                <img src="https://firebasestorage.googleapis.com/v0/b/innovaciondocente-utpl.appspot.com/o/acerca-nosotros%2FLourdes.jpg?alt=media&token=0d6affea-bb7a-406c-b092-100cf67c4b8d"
                      alt="img-avatar" />
                 <figcaption>
                   <h5>Evaluación Docente</h5>
                   <h3>Mgtr. Lourdes Cueva</h3>
                 </figcaption>
-                <a href="#"></a>
               </figure>
             </div>
-          </section>
+          </div>
           <div class="section-text">
             <h2>InDevelomenpt Company</h2>
             <p>
-              Compañía de desarrollo de software fundada en 2018, por un grupo de estudiantes de la titulación de Ingeniería
-              en Sistemas Informáticos y Computación de la UTPL. Tras la intervención en el proyecto
-              Ascendere, nace el grupo con la visión de generar innovación mediante el uso de nuevas
-              tecnologías, cuya misión es incentivar a otros jóvenes a participar en los diferentes proyectos
+              Compañía de desarrollo de software fundada en 2018, por un grupo de estudiantes de la
+              titulación de Ingeniería
+              en Sistemas Informáticos y Computación de la UTPL. Tras la intervención en el
+              proyecto
+              Ascendere, nace el grupo con la visión de generar innovación mediante el uso de
+              nuevas
+              tecnologías, cuya misión es incentivar a otros jóvenes a participar en los diferentes
+              proyectos
               y actividades generados por las universidades.
             </p>
           </div>
           <div>
             <figure class="column-img">
-              <img :src="data.indev"
-                   alt="img-avatar" />
+              <img src="https://images.unsplash.com/photo-1520127877998-122c33e8eb38?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7a45ca2052a4522614afac29c1d5ed5c&auto=format&fit=crop&w=749&q=80"
+                   alt="Indev Team" />
               <figcaption>
                 <h3>With
                   <a class="footer-heart"
@@ -90,20 +89,17 @@
               <a href="#"></a>
             </figure>
           </div>
-        </section>
-      </section>
-    </section>
-  </section>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
-import axios from "axios";
 export default {
-  async asyncData() {
-    let { data } = await axios.get(
-      `https://innovaciondocente-utpl.firebaseio.com/quienes-somos.json`
-    );
+  asyncData() {
     return {
-      data
+      description:
+        '"Ascendere" evoca la consigna recuerda superarte siempre, para reafirmar el compromiso de la UTPL de contar con docentes que inspiren a sus alumnos, innovadores y vinculados con la práctica de su profesión y que se encuentren a la vanguardia de su disciplina. El Proyecto Ascendere es una iniciativa enmarcada en el Plan Estratégico de Desarrollo Institucional, que nace con el propósito de trabajar y agrupar aquellas iniciativas que potencien las competencias de los docentes a través de la innovación académica y la investigación en nuevas metodologías de educación y uso de las TIC.'
     };
   },
   head() {
@@ -113,7 +109,7 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.data.innovando
+          content: this.description
         }
       ]
     };
@@ -128,29 +124,31 @@ p {
   column-gap: 2.25rem;
   line-height: 2.25;
 }
-section {
-  padding-bottom: 20px;
-}
 .parallax {
-  height: 70vh !important;
+  height: 70vh;
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/innovaciondocente-utpl.appspot.com/o/acerca-nosotros%2FIMG_7872.jpg?alt=media&token=05891cf4-6924-4584-b480-db4236f2fd1a);
 }
 .section-text {
-  padding: 1rem 8rem 1rem 8rem;
+  padding: 2rem 8rem 1rem 8rem;
   h2 {
     text-align: center;
   }
 }
 .we-team {
-  text-align: center;
-  height: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100%;
+  border-bottom: 1px #e1e4e8 solid;
   img {
-    height: 150px;
-    width: 150px;
+    height: 100px;
+    width: 100px;
   }
   h1 {
+    font-size: 200%;
     margin: 0;
     padding: 1rem;
-    border-left: 2px $color-warning solid;
+    border-left: 1px $color-warning solid;
   }
 }
 .row {
@@ -159,6 +157,8 @@ section {
   justify-content: center;
   text-align: center;
   align-content: center;
+  background-color: $color-secondary;
+  padding: 18px 18px 36px 18px;
 }
 figure.column-img {
   position: relative;
@@ -239,6 +239,14 @@ figure.column-img {
   }
   .section-text {
     padding: 1rem 1rem 1rem 1rem;
+  }
+}
+@media (min-width: 768px) {
+  h1 {
+    font-size: 200%;
+    margin: 0;
+    padding: 1rem;
+    border-left: 1px #333 solid;
   }
 }
 </style>

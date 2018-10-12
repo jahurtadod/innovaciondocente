@@ -1,45 +1,48 @@
 <template>
   <div>
-    <header class="header">
+    <header class="header"
+            v-if="indexData.banner">
       <div class="header-overlay"></div>
       <div class="fondo">
         <img class="img-move"
-             :src="data.banner"
+             :src="indexData.banner"
              alt="">
       </div>
-      <div class="header-content">
-        <h1>Proyecto Ascendere</h1>
-        <p>Innovación
-          <span>|</span> Formación
-          <span>|</span> Evaluación</p>
-        <div @click="pageScroll()"
-             id="arrow">
-          <a href="#"
-             class="arrow arrow-1">
-            <span>arrow</span>
-          </a>
-          <a href="#"
-             class="arrow arrow-2">
-            <span>arrow</span>
-          </a>
-          <a href="#"
-             class="arrow arrow-3">
-            <span>arrow</span>
-          </a>
+        <div class="header-content">
+          <h1>Proyecto Ascendere</h1>
+          <p>Innovación
+            <span>|</span> Formación
+            <span>|</span> Evaluación</p>
+          <div @click="pageScroll()"
+               id="arrow">
+            <a href="#"
+               class="arrow arrow-1">
+              <span>arrow</span>
+            </a>
+            <a href="#"
+               class="arrow arrow-2">
+              <span>arrow</span>
+            </a>
+            <a href="#"
+               class="arrow arrow-3">
+              <span>arrow</span>
+            </a>
+          </div>
         </div>
-      </div>
     </header>
-    <Cards/>
-    <CafeCientifico/>
-    <LiiD/>
-    <QuienesSomos/>
+    <Cards />
+    <CafeCientifico />
+    <LiiD :liid='indexData.liid'
+          :project='indexData.project' />
+    <QuienesSomos :quienesSomos="indexData['quienes-somos']" />
     <Suscripcion title="Suscríbete"
-                 description="Obtenga las últimas noticias de Innovación UTPL entregadas en su bandeja de entrada."
-    />
-    <FooterIndex/>
+                 description="Obtenga las últimas noticias de Innovación UTPL entregadas en su bandeja de entrada." />
+    <FooterIndex />
   </div>
 </template>
 <script>
+import { IndexDocument } from "~/plugins/firebase.js";
+
 import Navbar from "@/components/Navbar";
 import Cards from "@/components/Index/Cards";
 import CafeCientifico from "@/components/Index/CafeCientifico";
@@ -47,16 +50,13 @@ import LiiD from "@/components/Index/Liid";
 import QuienesSomos from "@/components/Index/QuienesSomos";
 import FooterIndex from "@/components/Index/FooterIndex";
 import Suscripcion from "@/components/Suscripcion";
-import axios from "axios";
 
 export default {
   layout: "empty",
   async asyncData() {
-    let { data } = await axios.get(
-      `https://innovaciondocente-utpl.firebaseio.com/index.json`
-    );
+    const indexSnap = await IndexDocument.get();
     return {
-      data
+      indexData: indexSnap.data()
     };
   },
   methods: {
@@ -78,13 +78,12 @@ export default {
   },
   head() {
     return {
-      title: "Innovación Docente",
+      title: "PROYECTO ASCENDERE",
       meta: [
         {
           hid: "description",
           name: "description",
-          content:
-            "El Laboratorio de Investigación e Innovación Docente Educativa es un espacio orientado al desarrollo de la innovación e investigación educativa a nivel local, nacional e internacional."
+          content: this.indexData.description
         }
       ]
     };
@@ -193,6 +192,7 @@ p {
   width: 24px;
   height: 24px;
   margin-left: -12px;
+  cursor: pointer;
   border-left: 1px solid $color-warning;
   border-bottom: 1px solid $color-secondary;
   -webkit-transform: rotate(-45deg);

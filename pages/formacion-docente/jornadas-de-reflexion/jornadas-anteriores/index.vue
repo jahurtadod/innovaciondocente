@@ -25,7 +25,7 @@
 export default {
   head() {
     return {
-      title: "Jornadas de Reflexión  ",
+      title: "Jornadas de Reflexión",
       meta: [
         {
           hid: "description",

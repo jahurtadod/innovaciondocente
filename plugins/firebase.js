@@ -18,6 +18,10 @@ firebase.firestore().settings({
 
 const AFirestore = firebase.firestore();
 
+const MetaCollection = AFirestore.collection('meta');
+
+const IndexDocument = MetaCollection.doc('index');
+
 // programa-formacion
 const ProgramaFormacionDocument = AFirestore
   .collection("formacion-docente")
@@ -42,6 +46,7 @@ const EdutendenciasDocument = AFirestore
 const TipsCollection = EdutendenciasDocument.collection('tips');
 export {
   AFirestore,
+  IndexDocument,
   ProgramaFormacionDocument,
   CursosCollection,
   CafeCientificoDocument,

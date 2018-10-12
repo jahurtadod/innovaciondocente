@@ -7,7 +7,11 @@
            v-if="canPostulate">
         <i class="fas fa-calendar-alt"></i>
         Postula hasta el
-        <b>{{curso.postulation.date | date}}</b>
+        <b>{{curso.postulation.date | dateTimestamp}}</b>
+      </div>
+      <div class="alert alert-success"
+           v-else-if="curso.postulation.message">
+        {{curso.postulation.message}}
       </div>
       <div class="alert alert-danger"
            v-else>
@@ -42,9 +46,7 @@
         </div>
         <!--split-->
         <div class="col-md-9">
-          <p>
-            {{ curso.description}}
-          </p>
+          <p class="auto-break">{{curso.description}}</p>
           <!---->
           <span v-if="curso.instructors">
             <b>Instructor:</b>
@@ -59,7 +61,7 @@
           <!---->
           <p>
             <b>Fecha:</b>
-            {{ curso.date | date}}
+            {{curso.date | dateTimestamp}}
           </p>
           <!---->
           <span v-if="curso.duration">
@@ -102,34 +104,43 @@
 </template>
 
 <script>
-import { ProgramaFormacionDocument } from "~/plugins/firebase.js";
+import { AFirestore } from "~/plugins/firebase.js";
 
 export default {
   async asyncData({ params }) {
-    let curso;
-    let canPostulate;
-    let doc = await ProgramaFormacionDocument.collection("cursos")
+    let curso = null;
+    let canPostulate = false;
+    const doc = await AFirestore.collection(
+      "formacion-docente/programa-formacion/cursos"
+    )
       .doc(params.id)
       .get();
     if (doc.exists) {
       curso = { ...doc.data(), id: doc.id };
-      // validate date
-      // TODO: fix time
-      let date = new Date(curso.postulation.date);
-      canPostulate = date.getTime() >= new Date().getTime();
+      // validate date, if exist
+      if (curso.postulation.date) {
+        const temp = new Date();
+        const endDate = new Date(curso.postulation.date.seconds * 1000);
+        const todayDate = new Date(
+          temp.getFullYear(),
+          temp.getMonth(),
+          temp.getDate()
+        );
+        canPostulate = endDate >= todayDate;
+      }
     }
     return { curso, canPostulate };
   },
   head() {
     return {
-      title: this.curso ? this.curso.name : "No se encontro el encuentro",
+      title: this.curso ? this.curso.name : "No se encontro el curso",
       meta: [
         {
           hid: "description",
           name: "description",
           content: this.curso
             ? this.curso.description
-            : "No se encontro el encuentro"
+            : "No se encontro el curso"
         }
       ]
     };

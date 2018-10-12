@@ -5,12 +5,7 @@
         {{title}}
       </h1>
     </header>
-    <section class="container">
-      <p>
-        {{description}}
-      </p>
-    </section>
-    <div class="container-fluid">
+    <section class="container-fluid">
       <div class="row">
         <div v-for="tip in tips"
              :key="tip.id"
@@ -23,13 +18,12 @@
                     allowfullscreen></iframe>
           </div>
           <h3>{{tip.name}}</h3>
-          <p>{{tip.description}}</p>
-
+          <p class="auto-break">{{tip.description}}</p>
         </div>
       </div>
       <button @click="$router.go(-1)"
               class="btn btn-outline-primary btn-large btn-sm">Regresar</button>
-    </div>
+    </section>
   </div>
 </template>
 

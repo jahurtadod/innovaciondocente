@@ -6,9 +6,9 @@
       <section class="container">
         <h1>{{encuentro.name}}</h1>
         <small>
-          <i class="fas fa-calendar-alt"></i> {{encuentro.date | date}}</small>
+          <i class="fas fa-calendar-alt"></i> {{encuentro.date | dateTimestamp}}</small>
         <hr>
-        <p>{{encuentro.description}}</p>
+        <p class="auto-break">{{encuentro.description}}</p>
         <div v-if="encuentro.guests">
           <h2>
             <i class="fas fa-users"></i> Invitados
@@ -18,7 +18,7 @@
                  v-for="(guest, index) in encuentro.guests"
                  :key="index">
               <strong>{{guest.name}}: </strong>
-              <p>{{guest.description}}</p>
+              <p class="auto-break">{{guest.description}}</p>
             </div>
           </div>
         </div>
@@ -45,21 +45,27 @@
 </template>
 
 <script>
-import { CafeCientificoDocument } from "~/plugins/firebase.js";
+import { AFirestore } from "~/plugins/firebase.js";
 export default {
   async asyncData({ params }) {
     let encuentro = null;
     let canIncribe = false;
     try {
-      let doc = await CafeCientificoDocument.collection("encuentros")
+      const docSnap = await AFirestore.collection(
+        "formacion-docente/cafe-cientifico/encuentros"
+      )
         .doc(params.id)
         .get();
-      if (doc.exists) {
-        encuentro = { ...doc.data(), id: doc.id };
-        // validate date
-        // TODO: fix time
-        let date = new Date(encuentro.postulations);
-        canIncribe = date.getTime() >= new Date().getTime();
+      if (docSnap.exists) {
+        encuentro = { ...docSnap.data(), id: docSnap.id };
+        const temp = new Date();
+        const endDate = new Date(encuentro.postulations.seconds * 1000);
+        const todayDate = new Date(
+          temp.getFullYear(),
+          temp.getMonth(),
+          temp.getDate()
+        );
+        canIncribe = endDate >= todayDate;
       }
     } catch (error) {}
     return {

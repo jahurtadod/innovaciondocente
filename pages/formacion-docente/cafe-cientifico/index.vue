@@ -25,9 +25,9 @@
               </ul>
             </div>
             <div class="col-lg-7">
-              <small>{{ultimoEncuentro.date | date}}</small>
-              <p class="no-mobile">{{ultimoEncuentro.description | slice(0,700)}}</p>
-              <p class="no-desktop">{{ultimoEncuentro.description | slice(0,300)}}</p>
+              <small>{{ultimoEncuentro.date | dateTimestamp}}</small>
+              <p class="no-mobile auto-break">{{ultimoEncuentro.description | slice(0,700)}}</p>
+              <p class="no-desktop auto-break">{{ultimoEncuentro.description | slice(0,300)}}</p>
             </div>
           </div>
         </nuxt-link>

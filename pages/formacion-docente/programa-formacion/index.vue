@@ -6,9 +6,7 @@
         <h1>
           {{title}}
         </h1>
-        <p class="container">
-          {{description}}
-        </p>
+        <p class="container auto-break">{{description}}</p>
       </div>
     </header>
     <!--Cursos section-->
