@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { TipsExpertosCollection } from "~/plugins/firebase.js";
+import { AFirestore } from "~/plugins/firebase.js";
 
 export default {
   async asyncData({ params }) {
@@ -39,7 +39,11 @@ export default {
     return { tips: null };
   },
   async mounted() {
-    const tipsSnap = await TipsExpertosCollection.get();
+    const tipsSnap = await AFirestore.collection(
+      "formacion-docente/programa-formacion/tips"
+    )
+      .orderBy("added", "desc")
+      .get();
     this.tips = tipsSnap.docs.map(doc =>
       Object.assign({ id: doc.id }, doc.data())
     );

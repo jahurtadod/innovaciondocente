@@ -2,18 +2,25 @@
   <section class="cafe-cientifico">
     <div class="container">
       <!-- head -->
-      <div v-if="description">
+      <div>
         <h2>Café Científico</h2>
-        <p class="auto-break">{{description}}</p>
+        <p>
+          Encuentro Café Científico es un evento en el que expertos y
+          profesionales en diferentes campos, dialogan y problematizan sobre un tema actual de una
+          forma diferente e informal. Su finalidad de escuchar opiniones diversas y realizar
+          algunos postulados que contribuyan al trabajo posterior y que ayuden a fomentar
+          inquietudes que despiertan una entretenida discusión.
+        </p>
       </div>
+      <hr>
 
       <!-- last encuentro -->
-      <hr>
       <div class="row"
            v-if="encuentro">
         <div class="col-md-6 section-text">
           <h3>{{encuentro.name}}</h3>
           <small>
+            <i class="fas fa-calendar-alt"></i>
             {{encuentro.date | dateTimestamp}}
           </small>
           <p class="auto-break">{{encuentro.description | slice(0,500) }}</p>
@@ -35,26 +42,21 @@
 </template>
 
 <script>
-import {
-  CafeCientificoDocument,
-  EncuentrosCollection
-} from "~/plugins/firebase.js";
+import { AFirestore } from "~/plugins/firebase.js";
 
 export default {
   data() {
     return {
-      description: null,
       encuentro: null
     };
   },
   async mounted() {
-    let cafeCientificoSnap = await CafeCientificoDocument.get();
-    if (cafeCientificoSnap.exists) {
-      this.description = cafeCientificoSnap.data()["description"];
-    }
-
-    // load encuentros
-    let querySnapshot = await EncuentrosCollection.limit(1).get();
+    const querySnapshot = await AFirestore.collection(
+      "formacion-docente/cafe-cientifico/encuentros"
+    )
+      .orderBy("date", "desc")
+      .limit(1)
+      .get();
     querySnapshot.docs.map(
       doc => (this.encuentro = { id: doc.id, ...doc.data() })
     );
