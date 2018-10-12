@@ -36,11 +36,11 @@
         </div>
         <div class="dropdown">
           <button class="dropbtn">
-            Observatorio
+            Observatorio EduTendencias
             <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-content">
-            <nuxt-link :to="{name: 'observatorio-edutendencias-tips-innovacion'}">EduTendencias</nuxt-link>
+            <nuxt-link :to="{name: 'observatorio-edutendencias-tips-innovacion'}">Tips de Innovacion</nuxt-link>
             <nuxt-link :to="{name: 'observatorio-edutendencias-noticias'}">Noticias</nuxt-link>
           </div>
         </div>
