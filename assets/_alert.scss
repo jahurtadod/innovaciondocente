@@ -57,7 +57,3 @@
 .alert-danger {
   @include alert($color-danger, 35, 10);
 }
-
-.alert-dark {
-  @include alert($color-dark, 75, 10);
-}

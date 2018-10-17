@@ -99,13 +99,13 @@ $size: 250px;
     position: relative;
     height: 100%;
     width: 100%;
-    color: $color-font-primary;
+    color: $color-text-primary;
     background: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0),
       rgba(0, 0, 0, 0),
       rgba(0, 0, 0, 0.664),
-      $color-dark
+      $color-background-inverse
     );
     .data {
       padding: 20px;
@@ -125,7 +125,7 @@ $size: 250px;
       p,
       a {
         display: none;
-        color: $color-font-primary;
+        color: $color-text-primary;
       }
       a {
         float: right;
@@ -134,7 +134,7 @@ $size: 250px;
   }
 }
 .overlay:hover {
-  background: rgba($color-dark, 0.8);
+  background: rgba($color-background-inverse, 0.8);
   .data {
     p,
     a {

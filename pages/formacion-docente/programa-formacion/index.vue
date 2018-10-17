@@ -97,13 +97,13 @@ header {
 .header-content {
   text-align: center;
   h1 {
-    color: $color-font-primary;
+    color: $color-text-primary;
     font-weight: 400;
   }
   margin: auto;
   p {
     text-align: center;
-    color: $color-font-primary;
+    color: $color-text-primary;
   }
 }
 @media screen and (min-width: 768px) {

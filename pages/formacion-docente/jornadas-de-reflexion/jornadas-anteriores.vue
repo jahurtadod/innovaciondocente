@@ -3,11 +3,11 @@
     <div class="row">
       <div class="col-lg-3">
         <section class="sticky">
-          <nuxt-link class="btn btn-outline-dark btn-large"
+          <nuxt-link class="btn btn-outline-primary btn-large"
                      :to="{name: 'formacion-docente-jornadas-de-reflexion-jornadas-anteriores'}">
             JORNADAS <br> DE REFLEXIÓN
           </nuxt-link>
-          <nuxt-link class="btn btn-outline-dark btn-large"
+          <nuxt-link class="btn btn-outline-primary btn-large"
                      v-for="(jornada, key) in data"
                      :key="key"
                      :to="{name: 'formacion-docente-jornadas-de-reflexion-jornadas-anteriores-id', params: {id:key}}">
@@ -54,15 +54,5 @@ export default {
 
 section {
   padding-bottom: 0;
-}
-
-.nuxt-link-exact-active {
-  color: $color-font-primary !important;
-  background-color: $color-dark !important;
-  border-color: $color-dark !important;
-  &:hover {
-    opacity: 0.8;
-    transition: 0.2s all ease;
-  }
 }
 </style>

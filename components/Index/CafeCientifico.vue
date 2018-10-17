@@ -80,7 +80,7 @@ export default {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     span {
-      color: $color-warning;
+      color: $color-secondary;
     }
   }
 }

@@ -61,7 +61,7 @@ export default {
 <style lang="scss" scoped>
 @import "assets/form";
 .blue {
-  color: $color-font-primary;
+  color: $color-text-primary;
   background-color: $color-primary;
 }
 </style>

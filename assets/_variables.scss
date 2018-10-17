@@ -1,55 +1,14 @@
-
 /*Color valiables*/
-/*NOTE: Don't use this*/
-$col-blue: #14336a;
-$col-blue-dark: #142b53;
-$col-blue-light: #1d4488;
-$col-blue-matte: #00406f;
+$color-primary:#00a6c4;
+$color-text-primary:#ffffff;
+$color-secondary:#fab529;
+$color-text-secondary:#000000;
 
-$col-white: #fefefe;
-$col-white-dark: #f2f2f2;
-$col-black: #20222e;
+$color-text:#000000;
+$color-background:#fefefe;
 
-$col-yellow: #d1a961;
-$col-yellow-light: #d1ac66;
-$col-yellow-dark: #9c8252;
-$col-mustard: #feea00;
-$col-mustard-light: #fff36d;
-$col-mustard-dark:#ddcb00;
+$color-text-inverse:#ffffff;
+$color-background-inverse:#000000;
 
-$col-red: #f44336;
-
-$col-green: #4CAF50;
-
-$col-cian: #2196F3;
-
-$col-brown: #7d5b4f;
-
-
-
-/*variables for usage*/
-$color-primary:#0D47A1;// #2a3e71;
-$color-primary-light: $col-blue-light;
-$color-primary-dark: $col-blue-dark;
-
-$color-section: $col-blue-matte;
-
-$color-secondary: $col-white;
-$color-active: $col-blue;
-$color-success: $col-green;
-$color-warning: $col-mustard;
-$color-warning-dark: $col-mustard-dark;
-$color-warning-light: $col-mustard-light;
+$color-success: #4CAF50;
 $color-danger: #dc3023;
-$color-dark: $col-black;
-
-$color-font-primary: $col-white;
-$color-font-background: $col-black;
-$color-font: $color-font-background;
-$color-font-light: #7a7a7a;
-
-$color-background: $col-white;
-$color-background-white: $col-white-dark;
-
-$color-tecnica: $col-cian;
-$color-administrativa: $col-brown;

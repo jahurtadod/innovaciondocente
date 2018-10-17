@@ -99,7 +99,7 @@ nav {
   a {
     float: left;
     display: block;
-    color: $color-font-primary;
+    color: $color-text-primary;
     text-align: center;
     padding: $padding;
     text-decoration: none;
@@ -124,7 +124,7 @@ nav {
   .dropbtn {
     border: none;
     outline: none;
-    color: $color-font-primary;
+    color: $color-text-primary;
     padding: $padding;
     background-color: inherit;
     margin: 0;
@@ -134,13 +134,13 @@ nav {
     cursor: pointer;
     display: none;
     position: absolute;
-    background-color: $color-font-primary;
+    background-color: $color-text-primary;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7);
     min-width: 100px;
     z-index: 1020;
     a {
       float: none;
-      background-color: $color-font-primary;
+      background-color: $color-text-primary;
       color: $color-primary;
       padding: $padding;
       text-decoration: none;
@@ -148,7 +148,7 @@ nav {
       text-align: left;
       &:hover {
         background-color: $color-primary;
-        color: $color-font-primary;
+        color: $color-text-primary;
       }
     }
   }
@@ -190,12 +190,12 @@ nav {
       }
       &-content {
         position: relative;
-        background-color: $color-font-primary;
-        border-left: 2px solid $color-font-primary;
+        background-color: $color-text-primary;
+        border-left: 2px solid $color-text-primary;
         box-shadow: none;
         a {
           background-color: $color-primary;
-          color: $color-font-primary;
+          color: $color-text-primary;
         }
       }
     }

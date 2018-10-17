@@ -109,14 +109,14 @@ export default {
   margin: auto;
   h1 {
     font-weight: 400;
-    color: $color-font-primary;
+    color: $color-text-primary;
     font-size: 400%;
     margin: 0;
     padding: 0;
   }
   .text {
     text-align: justify;
-    color: $color-font-primary;
+    color: $color-text-primary;
     display: flex;
     justify-content: center;
     align-content: center;

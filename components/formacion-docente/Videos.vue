@@ -65,7 +65,7 @@ export default {
 @import "assets/variables";
 section {
   background-color: $color-primary;
-  color: $color-font-primary;
+  color: $color-text-primary;
 }
 
 .embed-container {

@@ -159,13 +159,12 @@
 }
 
 footer {
-  color: #999999;
+  color: $color-text;
 }
 
 .footer-info {
   padding: 1rem;
   font-size: 80%;
-  border-top: 1px #e1e4e8 solid;
   p {
     margin: 5px 0;
   }
