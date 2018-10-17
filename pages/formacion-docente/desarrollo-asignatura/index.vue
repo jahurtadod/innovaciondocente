@@ -131,8 +131,8 @@ export default {
   width: 35px;
   height: 35px;
   right: -17px;
-  background-color: $color-font-primary;
-  border: 4px solid $color-warning;
+  background-color: $color-text-primary;
+  border: 4px solid $color-secondary;
   top: 15px;
   border-radius: 50%;
   z-index: 1;
@@ -157,7 +157,7 @@ export default {
   width: 0;
   z-index: 1;
   right: 30px;
-  border: medium solid $color-font-primary;
+  border: medium solid $color-text-primary;
   border-width: 10px 0 10px 10px;
   border-color: transparent transparent transparent $color-primary;
 }
@@ -171,7 +171,7 @@ export default {
   width: 0;
   z-index: 1;
   left: 30px;
-  border: medium solid $color-font-primary;
+  border: medium solid $color-text-primary;
   border-width: 10px 10px 10px 0;
   border-color: transparent $color-primary transparent transparent;
 }
@@ -207,9 +207,9 @@ export default {
   /* Make sure that all arrows are pointing leftwards */
   .container::before {
     left: 60px;
-    border: medium solid $color-font-primary;
+    border: medium solid $color-text-primary;
     border-width: 10px 10px 10px 0;
-    border-color: transparent $color-font-primary transparent transparent;
+    border-color: transparent $color-text-primary transparent transparent;
   }
 
   /* Make sure all circles are at the same spot */

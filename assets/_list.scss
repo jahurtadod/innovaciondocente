@@ -19,7 +19,7 @@
     &::before {
       border-radius: 50%;
       background-color: $color-primary;
-      color: $color-font-primary;
+      color: $color-text-primary;
       content: counter(step-counter);
       display: inline-block;
       float: left;

@@ -97,7 +97,7 @@ export default {
 @import "assets/variables";
 @import "assets/card";
 h1 {
-  color: $color-secondary;
+  color: $color-text-primary;
   text-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   font-size: 120px;
   letter-spacing: 5px;
@@ -105,7 +105,7 @@ h1 {
 p {
   text-align: center;
   span {
-    color: $color-warning;
+    color: $color-secondary;
   }
 }
 .header {
@@ -115,7 +115,7 @@ p {
   width: 100%;
   display: flex;
   align-items: center;
-  color: $color-secondary;
+  color: $color-text-primary;
   text-align: center;
 }
 .fondo {
@@ -149,8 +149,8 @@ p {
   height: 100vh;
   width: 100%;
   position: absolute;
-  background: $color-section;
-  opacity: 0.6;
+  background: $color-primary;
+  opacity: 0.3;
   z-index: -1;
 }
 .header-content {
@@ -195,8 +195,8 @@ p {
   height: 24px;
   margin-left: -12px;
   cursor: pointer;
-  border-left: 1px solid $color-warning;
-  border-bottom: 1px solid $color-secondary;
+  border-left: 1px solid $color-secondary;
+  border-bottom: 1px solid $color-text-primary;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
   -webkit-animation: sdb05 1.5s infinite;

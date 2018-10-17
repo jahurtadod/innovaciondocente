@@ -4,7 +4,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="liid-info">
-            <img alt="Lab img" :src="liid.img">
+            <img alt="Lab img"
+                 :src="liid.img">
             <p class="auto-break">{{liid.description}}</p>
           </div>
         </div>
@@ -18,7 +19,7 @@
                       allow="autoplay; encrypted-media"
                       allowfullscreen></iframe>
             </div>
-            <p class="auto-break">{{project.description}}</p>
+            <p class="auto-break on-secondary">{{project.description}}</p>
             <nuxt-link :to="{name: 'innovacion-docente-proyectos-actuales'}"
                        class="btn btn-large btn-primary">Atrevete</nuxt-link>
           </div>
@@ -44,7 +45,7 @@ export default {
   vertical-align: middle;
   text-align: center;
   h2 {
-    color: $color-primary;
+    color: $color-text-secondary;
   }
   img {
     height: 250px;
@@ -54,13 +55,17 @@ export default {
     text-align: center;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+
     span {
-      color: $color-warning;
+      color: $color-secondary;
     }
   }
 }
+.on-secondary {
+  color: $color-text-secondary;
+}
 .background-mustard {
-  background: $color-warning;
+  background: $color-secondary;
 }
 .embed-container {
   position: relative;

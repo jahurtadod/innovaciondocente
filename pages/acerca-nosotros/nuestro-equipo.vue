@@ -148,7 +148,7 @@ p {
     font-size: 200%;
     margin: 0;
     padding: 1rem;
-    border-left: 1px $color-warning solid;
+    border-left: 1px $color-secondary solid;
   }
 }
 .row {
@@ -157,7 +157,6 @@ p {
   justify-content: center;
   text-align: center;
   align-content: center;
-  background-color: $color-secondary;
   padding: 18px 18px 36px 18px;
 }
 figure.column-img {

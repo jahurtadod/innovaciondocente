@@ -4,20 +4,24 @@
       <div class="row">
         <div class="col-lg-2">
           <section class="sticky">
-            <nuxt-link class="btn btn-outline-dark btn-large"
+            <nuxt-link class="btn btn-outline-primary btn-large"
                        :to="{name: 'innovacion-docente-buenas-practicas-index'}">Inicio</nuxt-link>
-            <nuxt-link class="btn btn-outline-dark btn-large"
-                       :to="{name: 'innovacion-docente-buenas-practicas-index-id',params:{id:'0'}}">A. Biológica</nuxt-link>
-            <nuxt-link class="btn btn-outline-dark btn-large"
-                       :to="{name: 'innovacion-docente-buenas-practicas-index-id',params:{id:'1'}}">A. Técnica</nuxt-link>
-            <nuxt-link class="btn btn-outline-dark btn-large"
-                       :to="{name: 'innovacion-docente-buenas-practicas-index-id',params:{id:'2'}}">A. Socio...</nuxt-link>
-            <nuxt-link class="btn btn-outline-dark btn-large"
-                       :to="{name: 'innovacion-docente-buenas-practicas-index-id',params:{id:'3'}}">A. Admin...</nuxt-link>
+            <nuxt-link class="btn btn-outline-primary btn-large"
+                       :to="{name: 'innovacion-docente-buenas-practicas-index-id',params:{id:'0'}}">A.
+              Biológica</nuxt-link>
+            <nuxt-link class="btn btn-outline-primary btn-large"
+                       :to="{name: 'innovacion-docente-buenas-practicas-index-id',params:{id:'1'}}">A.
+              Técnica</nuxt-link>
+            <nuxt-link class="btn btn-outline-primary btn-large"
+                       :to="{name: 'innovacion-docente-buenas-practicas-index-id',params:{id:'2'}}">A.
+              Socio...</nuxt-link>
+            <nuxt-link class="btn btn-outline-primary btn-large"
+                       :to="{name: 'innovacion-docente-buenas-practicas-index-id',params:{id:'3'}}">A.
+              Admin...</nuxt-link>
           </section>
         </div>
         <section class="col-lg-9">
-          <nuxt-child/>
+          <nuxt-child />
         </section>
       </div>
     </div>
@@ -29,7 +33,7 @@ export default {
   async asyncData() {
     const description =
       "Semestralmente los profesores de Modalidad Presencial, Abierta y de Postgrados, presentan propuestas de Buenas Prácticas Docentes que potencian el uso creativo de diferentes herramientas dentro y fuera del aula.";
-    return {description };
+    return { description };
   },
   head() {
     return {
@@ -51,9 +55,8 @@ export default {
 @import "assets/card";
 @import "assets/variables";
 .nuxt-link-exact-active {
-  color: $color-font-primary !important;
+  color: $color-text-primary !important;
   background-color: $color-primary !important;
-  border-color: $color-dark !important;
   &:hover {
     opacity: 0.8;
     transition: 0.2s all ease;

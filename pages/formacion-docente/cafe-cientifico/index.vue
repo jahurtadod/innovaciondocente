@@ -158,7 +158,7 @@ export default {
   width: 100%;
   display: flex;
   align-items: center;
-  color: $color-secondary;
+  color: $color-text-primary;
   text-align: center;
 }
 .background-banner {
@@ -187,14 +187,14 @@ export default {
   width: 100%;
   position: absolute;
   left: 0;
-  background: $color-dark;
+  background: $color-background-inverse;
   opacity: 0.6;
   z-index: -1;
 }
 .header-content {
   margin: auto;
   h1 {
-    color: $color-font-primary !important;
+    color: $color-text-primary !important;
     font-weight: 400;
   }
   ul {
@@ -204,7 +204,7 @@ export default {
 }
 
 #encuentros {
-  background-color: $color-font-primary;
+  background-color: $color-text-primary;
   .row {
     overflow: auto;
     display: -webkit-box;

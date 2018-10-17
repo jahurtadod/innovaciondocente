@@ -2,11 +2,11 @@
 //////////how to use//////////
 ///
 ///  BASIC EXAMPLE FOR USING button
-///  
+///
 ///  required class        btn
 ///  for full button width  btn-large or btn-block
 ///  for disabled button    disabled
-///  to change the size of the btn add btn-lg btn-group-lg or btn-sm btn-group-sm 
+///  to change the size of the btn add btn-lg btn-group-lg or btn-sm btn-group-sm
 ///
 ///  TYPES:
 ///   - btn-inverse
@@ -73,39 +73,39 @@
 }
 
 .btn-inverse {
-  @include btn($color-primary, $color-font-primary);
+  @include btn($color-primary, $color-text-primary);
 }
 
 .btn-primary {
-  @include btn($color-font-primary, $color-primary);
+  @include btn($color-text-primary, $color-primary);
 }
 
 .btn-outline-primary {
-  @include btn-outline($color-primary, $color-font-primary);
+  @include btn-outline($color-primary, $color-text-primary);
 }
 
 .btn-success {
-  @include btn($color-font-primary, $color-success);
+  @include btn($color-text-primary, $color-success);
 }
 
 .btn-outline-success {
-  @include btn-outline($color-success, $color-font-primary);
+  @include btn-outline($color-success, $color-text-primary);
 }
 
 .btn-danger {
-  @include btn($color-font-primary, $color-danger);
+  @include btn($color-text-primary, $color-danger);
 }
 
 .btn-outline-danger {
-  @include btn-outline($color-danger, $color-font-primary);
+  @include btn-outline($color-danger, $color-text-primary);
 }
 
 .btn-dark {
-  @include btn($color-font-primary, $color-dark);
+  @include btn($color-text-primary, $color-background-inverse);
 }
 
 .btn-outline-dark {
-  @include btn-outline($color-dark, $color-font-primary);
+  @include btn-outline($color-background-inverse, $color-text-primary);
 }
 
 .btn-large,

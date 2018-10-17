@@ -67,7 +67,7 @@ export default {
 @import "assets/variables";
 @import "assets/style";
 h2 {
-  color: $col-mustard-light;
+  color: $color-secondary;
 }
 .obTec-1 {
   background-image: url("https://firebasestorage.googleapis.com/v0/b/innovaciondocente-utpl.appspot.com/o/observatorio-edutendencias%2Fobsevatorio%2Ffun.jpg?alt=media&token=36c1f88d-e4fa-4636-a562-a32a85e1c9c9");
@@ -91,7 +91,7 @@ h2 {
   justify-content: center;
   transition: 1s;
   &:hover {
-    background: $color-warning !important;
+    background: $color-secondary !important;
     h2 {
       color: $color-primary;
     }

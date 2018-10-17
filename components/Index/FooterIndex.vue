@@ -229,7 +229,7 @@ li {
   margin-top: 0;
   margin-right: 0;
   margin-bottom: 0;
-  color: $color-font-light;
+  color: $color-text;
 }
 .footer-index li {
   margin-left: 1rem;

@@ -367,7 +367,7 @@ export default {
 }
 
 .rating > label {
-  color: $color-font-light;
+  color: $color-text;
   float: right;
 }
 
