@@ -1,25 +1,5 @@
 @import 'assets/variables';
-//////////how to use//////////
-///
-///  BASIC EXAMPLE FOR USING button
-///
-///  required class        btn
-///  for full button width  btn-large or btn-block
-///  for disabled button    disabled
-///  to change the size of the btn add btn-lg btn-group-lg or btn-sm btn-group-sm
-///
-///  TYPES:
-///   - btn-inverse
-///   - btn-primary   - btn-outline-primary
-///   - btn-danger    - btn-outline-danger
-///   - btn-success   - btn-outline-success
-///   - btn-danger    - btn-outline-danger
-///   - btn-dark      - btn-outline-dark
-///   - btn-lg        - btn-group-lg
-///   - btn-sm        - btn-group-sm
-///  <a class="btn btn-primary btn-large">HELLO WORLD</a>
-///  <button class="btn btn-primary btn-large">HELLO WORLD</button>
-/////////functions////////////
+
 @mixin btn($color-1, $color-2) {
   color: $color-1 !important;
   background-color: $color-2 !important;

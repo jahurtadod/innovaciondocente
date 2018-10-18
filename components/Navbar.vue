@@ -30,8 +30,10 @@
           <div class="dropdown-content">
             <nuxt-link :to="{name: 'formacion-docente-programa-formacion'}">Programa de Formación</nuxt-link>
             <nuxt-link :to="{name: 'formacion-docente-cafe-cientifico'}">Café Científico</nuxt-link>
-            <nuxt-link :to="{name: 'formacion-docente-desarrollo-asignatura'}">Diseño de mi Asignatura</nuxt-link>
-            <nuxt-link :to="{name: 'formacion-docente-jornadas-de-reflexion'}">Jornadas de Reflexión</nuxt-link>
+            <nuxt-link :to="{name: 'formacion-docente-desarrollo-asignatura'}">Diseño de mi
+              Asignatura</nuxt-link>
+            <nuxt-link :to="{name: 'formacion-docente-jornadas-de-reflexion'}">Jornadas de
+              Reflexión</nuxt-link>
           </div>
         </div>
         <div class="dropdown">
@@ -40,7 +42,8 @@
             <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-content">
-            <nuxt-link :to="{name: 'observatorio-edutendencias-tips-innovacion'}">Tips de Innovacion</nuxt-link>
+            <nuxt-link :to="{name: 'observatorio-edutendencias-tips-innovacion'}">Tips de
+              Innovacion</nuxt-link>
             <nuxt-link :to="{name: 'observatorio-edutendencias-noticias'}">Noticias</nuxt-link>
           </div>
         </div>
@@ -134,21 +137,20 @@ nav {
     cursor: pointer;
     display: none;
     position: absolute;
-    background-color: $color-text-primary;
-    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7);
+    // box-shadow: 0px 1px 8px rgba($color-background-inverse, 0.7);
     min-width: 100px;
     z-index: 1020;
     a {
+      color: $color-text-primary;
+      background-color: $color-primary;
       float: none;
-      background-color: $color-text-primary;
-      color: $color-primary;
       padding: $padding;
       text-decoration: none;
       display: block;
       text-align: left;
       &:hover {
-        background-color: $color-primary;
-        color: $color-text-primary;
+        background-color: $color-background;
+        color: $color-text;
       }
     }
   }
