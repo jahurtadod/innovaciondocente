@@ -97,7 +97,6 @@ $margin-top: 15px;
 }
 
 
-$noir: #000;
 $text: #666c74;
 $footer: #4b4b4b;
 $duration: 0.3s;
@@ -110,12 +109,12 @@ $heightbody: 130px;
 .card_4 {
   width: 100%;
   background: $color-background;
-  box-shadow: 0 0 20px rgba($noir, 0.1);
+  box-shadow: 0 0 20px rgba($color-primary, 0.2);
   transition: box-shadow $duration;
   margin-bottom: 1rem;
 
   &:hover {
-    box-shadow: 0 0 50px rgba($noir, 0.3);
+    box-shadow: 0 0 50px rgba($color-primary, 0.6);
   }
 
   a {
@@ -126,13 +125,13 @@ $heightbody: 130px;
 
 .card_4__date {
   background: $color-primary;
+  color: $color-text-primary;
   position: absolute;
   top: 20px;
   right: 20px;
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  color: $color-text;
   text-align: center;
   line-height: 13px;
   font-weight: bold;
@@ -153,7 +152,6 @@ $heightbody: 130px;
 .card_4__thumb {
   height: $heightimg;
   overflow: hidden;
-  background-color: $noir;
   transition: height $duration;
 
   img {
@@ -167,7 +165,7 @@ $heightbody: 130px;
   }
 
   .card_4:hover & img {
-    opacity: 0.6;
+    opacity: 0.8;
     transform: scale(1.2);
   }
 
@@ -194,12 +192,12 @@ $heightbody: 130px;
   height: 25px;
   padding: 0 15px;
   background: $color-primary;
-  color: $color-text;
+  color: $color-text-primary;
   font-size: 11px;
   line-height: 25px;
 
   a {
-    color: $color-text;
+    color: inherit;
     text-decoration: none;
     text-transform: uppercase;
   }
@@ -209,7 +207,7 @@ $heightbody: 130px;
   padding: 0 0 10px 0;
   margin: 0;
   font-size: 22px;
-  color: $noir;
+  color: $color-text;
   font-weight: bold;
 
   .card_4:hover & {
@@ -237,7 +235,7 @@ $heightbody: 130px;
   height: $heighthoverimg - 15;
   padding: 0 0 0 0;
 
-  color: $text;
+  color: $color-text;
   font-size: 14px;
   line-height: 27px;
 
@@ -256,7 +254,7 @@ $heightbody: 130px;
 .card_4__footer {
   margin: 0;
   position: absolute;
-  color: $footer;
+  color: $color-text;
   bottom: 20px;
   left: 20px;
   right: 20px;
@@ -266,12 +264,12 @@ $heightbody: 130px;
 @keyframes titleBlur {
   0% {
     opacity: 0.6;
-    text-shadow: 0px 5px 5px rgba($noir, 0.6);
+    text-shadow: 0px 5px 5px rgba($color-text, 0.6);
   }
 
   100% {
     opacity: 1;
-    text-shadow: 0px 5px 5px rgba($noir, 0);
+    text-shadow: 0px 5px 5px rgba($color-text, 0);
   }
 }
 
