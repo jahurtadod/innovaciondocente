@@ -1,5 +1,6 @@
 <template>
-  <div class="header">
+  <div class="header"
+       id="nav">
     <nav id="responsive">
       <nuxt-link :to="{name: 'index'}"
                  class="logo">
@@ -72,6 +73,16 @@ export default {
         body.classList.remove("responsive");
       }
     }
+  },
+  mounted() {
+    document.addEventListener("scroll", () => {
+      let nav = document.getElementById("nav");
+      if (document.documentElement.scrollTop > 0) {
+        nav.classList.add("navShadow");
+      } else {
+        nav.classList.remove("navShadow");
+      }
+    });
   }
 };
 </script>
@@ -94,7 +105,7 @@ $padding: 12px;
 nav {
   overflow: hidden;
   background-color: $color-primary;
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7);
+
   .logo {
     font-weight: 700;
     padding-left: 30px;
@@ -111,6 +122,10 @@ nav {
   .icon {
     display: none;
   }
+}
+.navShadow {
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7);
+  transition: ease-in .2s;
 }
 
 .nuxt-link-exact-active {
