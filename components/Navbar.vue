@@ -1,5 +1,6 @@
 <template>
-  <div class="header">
+  <div class="header"
+       id="nav">
     <nav id="responsive">
       <nuxt-link :to="{name: 'index'}"
                  class="logo">
@@ -30,8 +31,10 @@
           <div class="dropdown-content">
             <nuxt-link :to="{name: 'formacion-docente-programa-formacion'}">Programa de Formación</nuxt-link>
             <nuxt-link :to="{name: 'formacion-docente-cafe-cientifico'}">Café Científico</nuxt-link>
-            <nuxt-link :to="{name: 'formacion-docente-desarrollo-asignatura'}">Diseño de mi Asignatura</nuxt-link>
-            <nuxt-link :to="{name: 'formacion-docente-jornadas-de-reflexion'}">Jornadas de Reflexión</nuxt-link>
+            <nuxt-link :to="{name: 'formacion-docente-desarrollo-asignatura'}">Diseño de mi
+              Asignatura</nuxt-link>
+            <nuxt-link :to="{name: 'formacion-docente-jornadas-de-reflexion'}">Jornadas de
+              Reflexión</nuxt-link>
           </div>
         </div>
         <div class="dropdown">
@@ -40,7 +43,8 @@
             <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-content">
-            <nuxt-link :to="{name: 'observatorio-edutendencias-tips-innovacion'}">Tips de Innovacion</nuxt-link>
+            <nuxt-link :to="{name: 'observatorio-edutendencias-tips-innovacion'}">Tips de
+              Innovacion</nuxt-link>
             <nuxt-link :to="{name: 'observatorio-edutendencias-noticias'}">Noticias</nuxt-link>
           </div>
         </div>
@@ -69,6 +73,16 @@ export default {
         body.classList.remove("responsive");
       }
     }
+  },
+  mounted() {
+    document.addEventListener("scroll", () => {
+      let nav = document.getElementById("nav");
+      if (document.documentElement.scrollTop > 0) {
+        nav.classList.add("navShadow");
+      } else {
+        nav.classList.remove("navShadow");
+      }
+    });
   }
 };
 </script>
@@ -91,7 +105,7 @@ $padding: 12px;
 nav {
   overflow: hidden;
   background-color: $color-primary;
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7);
+
   .logo {
     font-weight: 700;
     padding-left: 30px;
@@ -108,6 +122,10 @@ nav {
   .icon {
     display: none;
   }
+}
+.navShadow {
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7);
+  transition: ease-in .2s;
 }
 
 .nuxt-link-exact-active {
@@ -134,21 +152,20 @@ nav {
     cursor: pointer;
     display: none;
     position: absolute;
-    background-color: $color-text-primary;
-    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7);
+    // box-shadow: 0px 1px 8px rgba($color-background-inverse, 0.7);
     min-width: 100px;
     z-index: 1020;
     a {
+      color: $color-text-primary;
+      background-color: $color-primary;
       float: none;
-      background-color: $color-text-primary;
-      color: $color-primary;
       padding: $padding;
       text-decoration: none;
       display: block;
       text-align: left;
       &:hover {
-        background-color: $color-primary;
-        color: $color-text-primary;
+        background-color: $color-background;
+        color: $color-text;
       }
     }
   }

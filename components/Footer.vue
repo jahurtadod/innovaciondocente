@@ -79,6 +79,7 @@
 
   li {
     display: inline-block;
+    color: $color-text;
   }
   a {
     display: block;
@@ -152,7 +153,6 @@
 }
 
 .footer-icons {
-  border-top: 1px #e1e4e8 solid;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -174,7 +174,7 @@ footer {
 }
 
 .footer-outro {
-  border-top: 1px #e1e4e8 solid;
+  border-top: 1px $color-background-inverse solid;
   margin-bottom: 1.5rem;
   ul {
     display: flex;

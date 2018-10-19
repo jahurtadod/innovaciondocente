@@ -187,8 +187,8 @@ export default {
   width: 100%;
   position: absolute;
   left: 0;
-  background: $color-background-inverse;
-  opacity: 0.6;
+  background: $color-primary;
+  opacity: 0.4;
   z-index: -1;
 }
 .header-content {
@@ -204,7 +204,7 @@ export default {
 }
 
 #encuentros {
-  background-color: $color-text-primary;
+  background-color: $color-background;
   .row {
     overflow: auto;
     display: -webkit-box;

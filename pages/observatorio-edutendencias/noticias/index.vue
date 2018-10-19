@@ -1,30 +1,32 @@
 <template>
-  <section>
-    <h1>
-      Noticias
-    </h1>
-    <div class="container">
-      <div class="content"
-           v-for="(noticia, i) in noticias"
-           :key="i"
-           :style="'background-image: url('+noticia.img+');'">
-        <div class="overlay">
-          <div class="data">
-            <nuxt-link :to="{name: 'observatorio-edutendencias-noticias-id', params: {id:noticia.key}}"
-                       tag="h4">
-              {{noticia.nombre | capitalize}}
-            </nuxt-link>
-            <p>{{noticia.description}}
-              <br>
-              <nuxt-link :to="{name: 'observatorio-edutendencias-noticias-id', params: {id:noticia.key}}">
-                Leer más...
+  <div>
+    <header>
+      <h1>Noticias</h1>
+    </header>
+    <section>
+      <div class="container">
+        <div class="content"
+             v-for="(noticia, i) in noticias"
+             :key="i"
+             :style="'background-image: url('+noticia.img+');'">
+          <div class="overlay">
+            <div class="data">
+              <nuxt-link :to="{name: 'observatorio-edutendencias-noticias-id', params: {id:noticia.key}}"
+                         tag="h4">
+                {{noticia.nombre | capitalize}}
               </nuxt-link>
-            </p>
+              <p>{{noticia.description}}
+                <br>
+                <nuxt-link :to="{name: 'observatorio-edutendencias-noticias-id', params: {id:noticia.key}}">
+                  Leer más...
+                </nuxt-link>
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -54,6 +56,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "assets/variables";
+@import "assets/header";
 $size: 250px;
 
 .container {

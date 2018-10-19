@@ -1,65 +1,18 @@
 @import "assets/variables";
-//////////how to use//////////
-///
-///  BASIC EXAMPLE FOR USING CARDS
-///
-///  TYPES:
-///   - card__one
-///   - card__two
-///
-///  TO ADD CURSOR POINTER STYLE ADD
-///  link CLASS
-///
-///  <div class="card card__one link">
-///      <figure class="card__img">
-///          <img src="" alt="">
-///      </figure>
-///      <div class="card__desc">
-///          <p>HELLO WORLD</p>
-///      </div>
-///  </div>
-
-///  card-5
-///     <section>
-///       <div class="card-5" or class"card-5 alt">
-///        <img class="photo"
-///             src="">
-///        <div class="description">
-///          <h1>Learning to Code</h1>
-///          <h2>Opening a door to the future</h2>
-///          <div class="border"></div>
-///          <p class="summary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati
-///            enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
-///          <a href="#">Leer más +</a>
-///        </div>
-///      </div>
-///     </section>
-
-///  card-6
-///     <div class="col-md-4">
-///       <figure class="card6"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample87.jpg"
-///         alt="sample87" />
-///           <figcaption>
-///             <h3>Will Barrow</h3>
-///             <p>The only skills I have the patience to learn are those that have no real application
-///                 in life.
-///             </p>
-///           </figcaption>
-///           <a href="#"></a>
-///       </figure>
-///     </div>
 
 $color-bg-card: $color-background;
 $card-padding: 15px;
 $margin-top: 15px;
-.card{
+
+.card {
   position: relative;
   margin: $margin-top 0;
-  background: lighten($color-bg-card, 3%);
+  background: $color-background;
 }
 
 .card__img {
   margin: 0;
+
   img {
     max-width: 100%;
     height: auto;
@@ -75,6 +28,7 @@ $margin-top: 15px;
 
 .card__one {
   transition: transform .5s;
+
   &::after {
     position: absolute;
     top: 0;
@@ -87,9 +41,11 @@ $margin-top: 15px;
     opacity: 0;
     z-index: -1;
   }
+
   &:hover,
   &:focus {
     transform: scale3d(1.006, 1.006, 1);
+
     &::after {
       opacity: 1;
     }
@@ -97,6 +53,7 @@ $margin-top: 15px;
 }
 
 .card__two {
+
   &::before,
   &::after {
     position: absolute;
@@ -109,20 +66,24 @@ $margin-top: 15px;
     opacity: 0;
     pointer-events: none;
   }
+
   &::before {
     transform: scale3d(0, 1, 1);
     transform-origin: left top;
     border-top: 1px solid $color-primary;
     border-bottom: 1px solid $color-primary;
   }
+
   &::after {
     transform: scale3d(1, 0, 1);
     transform-origin: right top;
     border-right: 1px solid $color-primary;
     border-left: 1px solid $color-primary;
   }
+
   &:hover,
   &:focus {
+
     &::before,
     &::after {
       transform: scale3d(1, 1, 1);
@@ -136,9 +97,6 @@ $margin-top: 15px;
 }
 
 
-$bg: #d8e0e5;
-$blanc: #fff;
-$noir: #000;
 $text: #666c74;
 $footer: #4b4b4b;
 $duration: 0.3s;
@@ -150,13 +108,15 @@ $heightbody: 130px;
 
 .card_4 {
   width: 100%;
-  background: $blanc;
-  box-shadow: 0 0 20px rgba($noir, 0.1);
+  background: $color-background;
+  box-shadow: 0 0 20px rgba($color-primary, 0.2);
   transition: box-shadow $duration;
   margin-bottom: 1rem;
+
   &:hover {
-    box-shadow: 0 0 50px rgba($noir, 0.3);
+    box-shadow: 0 0 50px rgba($color-primary, 0.6);
   }
+
   a {
     color: inherit;
     text-decoration: none;
@@ -165,21 +125,23 @@ $heightbody: 130px;
 
 .card_4__date {
   background: $color-primary;
+  color: $color-text-primary;
   position: absolute;
   top: 20px;
   right: 20px;
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  color: $blanc;
   text-align: center;
   line-height: 13px;
   font-weight: bold;
   padding-top: 10px;
+
   &__day {
     display: block;
     font-size: 14px;
   }
+
   &__month {
     display: block;
     font-size: 10px;
@@ -190,8 +152,8 @@ $heightbody: 130px;
 .card_4__thumb {
   height: $heightimg;
   overflow: hidden;
-  background-color: $noir;
   transition: height $duration;
+
   img {
     object-fit: cover;
     width: 100%;
@@ -201,10 +163,12 @@ $heightbody: 130px;
     transition: opacity $duration, transform $duration;
     transform: scale(1);
   }
+
   .card_4:hover & img {
-    opacity: 0.6;
+    opacity: 0.8;
     transform: scale(1.2);
   }
+
   .card_4:hover & {
     height: $heightimg - $heighthoverimg;
   }
@@ -215,6 +179,7 @@ $heightbody: 130px;
   padding: 20px;
   height: $heightbody;
   transition: height $duration;
+
   .card_4:hover & {
     height: $heightbody + $heighthoverimg;
   }
@@ -227,11 +192,12 @@ $heightbody: 130px;
   height: 25px;
   padding: 0 15px;
   background: $color-primary;
-  color: $blanc;
+  color: $color-text-primary;
   font-size: 11px;
   line-height: 25px;
+
   a {
-    color: $blanc;
+    color: inherit;
     text-decoration: none;
     text-transform: uppercase;
   }
@@ -241,8 +207,9 @@ $heightbody: 130px;
   padding: 0 0 10px 0;
   margin: 0;
   font-size: 22px;
-  color: $noir;
+  color: $color-text;
   font-weight: bold;
+
   .card_4:hover & {
     animation: titleBlur $duration;
   }
@@ -253,6 +220,7 @@ $heightbody: 130px;
   padding: 0 0 10px 0;
   color: $color-primary;
   font-size: 19px;
+
   .card_4:hover & {
     animation: subtitleBlur $duration;
   }
@@ -267,7 +235,7 @@ $heightbody: 130px;
   height: $heighthoverimg - 15;
   padding: 0 0 0 0;
 
-  color: $text;
+  color: $color-text;
   font-size: 14px;
   line-height: 27px;
 
@@ -275,6 +243,7 @@ $heightbody: 130px;
   transition: opacity $duration - 0.1s, transform $duration - 0.1s;
   transition-delay: 0s;
   transform: translateY(25px);
+
   .card_4:hover & {
     opacity: 1;
     transition-delay: 0.1s;
@@ -285,7 +254,7 @@ $heightbody: 130px;
 .card_4__footer {
   margin: 0;
   position: absolute;
-  color: $footer;
+  color: $color-text;
   bottom: 20px;
   left: 20px;
   right: 20px;
@@ -295,11 +264,12 @@ $heightbody: 130px;
 @keyframes titleBlur {
   0% {
     opacity: 0.6;
-    text-shadow: 0px 5px 5px rgba($noir, 0.6);
+    text-shadow: 0px 5px 5px rgba($color-text, 0.6);
   }
+
   100% {
     opacity: 1;
-    text-shadow: 0px 5px 5px rgba($noir, 0);
+    text-shadow: 0px 5px 5px rgba($color-text, 0);
   }
 }
 
@@ -308,6 +278,7 @@ $heightbody: 130px;
     opacity: 0.6;
     text-shadow: 0px 5px 5px rgba($color-primary, 0.6);
   }
+
   100% {
     opacity: 1;
     text-shadow: 0px 5px 5px rgba($color-primary, 0);
@@ -357,6 +328,7 @@ $heightbody: 130px;
     border-top: 2px solid $color-primary;
     margin: 10px 0px 10px 100px;
   }
+
   .border-alt {
     border-top: 2px solid $color-primary;
     margin: 10px 100px 10px 0px;
@@ -367,6 +339,7 @@ $heightbody: 130px;
     box-sizing: border-box;
     position: relative;
     height: 300px;
+
     h1 {
       line-height: 1em;
       margin: 0 0 10px 0;
@@ -426,6 +399,7 @@ $heightbody: 130px;
           left: inherit;
         }
       }
+
       .photo {
         float: right;
       }
@@ -438,10 +412,12 @@ $heightbody: 130px;
       height: 250px;
       width: 44%;
     }
+
     .summary {
       height: 70px;
       overflow: auto;
     }
+
     .description {
       float: left;
       width: 56%;
@@ -476,16 +452,19 @@ $heightbody: 130px;
   font-size: 16px;
   background-color: #000000;
 }
+
 .card6 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-transition: all 0.35s ease;
   transition: all 0.35s ease;
 }
+
 .card6 img {
   max-width: 100%;
   backface-visibility: hidden;
 }
+
 .card6 figcaption {
   position: absolute;
   top: 0;
@@ -499,6 +478,7 @@ $heightbody: 130px;
   -webkit-transform: translateX(150%);
   transform: translateX(150%);
 }
+
 .card6 figcaption:before {
   position: absolute;
   top: 50%;
@@ -512,6 +492,7 @@ $heightbody: 130px;
   border-width: 120px 120px 120px 0;
   border-color: transparent #ffffff transparent transparent;
 }
+
 .card6:after {
   position: absolute;
   bottom: 50%;
@@ -527,6 +508,7 @@ $heightbody: 130px;
   -webkit-transition: all 0.35s ease;
   transition: all 0.35s ease;
 }
+
 .card6 h3,
 .card6 p {
   line-height: 1.5em;
@@ -534,6 +516,7 @@ $heightbody: 130px;
   transform: translateX(-30px);
   margin: 0;
 }
+
 .card6 h3 {
   margin: 0 0 5px;
   line-height: 1.1em;
@@ -541,9 +524,11 @@ $heightbody: 130px;
   font-size: 1.4em;
   opacity: 0.75;
 }
+
 .card6 p {
   font-size: 0.8em;
 }
+
 .card6 a {
   position: absolute;
   top: 0;
@@ -552,6 +537,7 @@ $heightbody: 130px;
   right: 0;
   z-index: 1;
 }
+
 .card6:hover img,
 .card6.hover img {
   zoom: 1;
@@ -559,6 +545,7 @@ $heightbody: 130px;
   -webkit-opacity: 0.5;
   opacity: 0.5;
 }
+
 .card6:hover:after,
 .card6.hover:after,
 .card6:hover figcaption,
