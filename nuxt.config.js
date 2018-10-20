@@ -43,11 +43,11 @@ module.exports = {
       },
       {
         name: 'msapplication-TileColor',
-        content: '#2a3e71'
+        content: '#044a80'
       },
       {
         name: 'theme-color',
-        content: '#2a3e71'
+        content: '#044a80'
       },
       {
         'http-equiv': 'x-ua-compatible',
@@ -83,7 +83,7 @@ module.exports = {
   loadingIndicator: {
     name: 'three-bounce',
     color: 'white',
-    background: "#0D47A1"
+    background: "#044a80"
   },
   mode: 'universal',
   manifest: {
@@ -93,8 +93,8 @@ module.exports = {
     start_url: '/',
     display: 'standalone',
     orientation: "portrait",
-    background_color: "#2a3e71",
-    theme_color: "#2a3e71",
+    background_color: "#044a80",
+    theme_color: "#044a80",
   },
   build: {
     extend(config, {

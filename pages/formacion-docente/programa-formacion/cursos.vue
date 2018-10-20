@@ -45,7 +45,7 @@
       </div>
       <button @click="$router.go(-1)"
               class="btn btn-primary btn-large">
-        Regresar
+        RegresarW
       </button>
     </div>
   </div>

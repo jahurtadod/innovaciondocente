@@ -40,11 +40,6 @@ export default {
     let curso = {
       type: "Curso",
       title: null,
-      date: {
-        dia: "",
-        mes: "",
-        full: null
-      },
       description: null,
       img: null,
       key: {
@@ -85,19 +80,20 @@ export default {
           return;
         }
       });
-    // let cursosSnap = await CursosCollection.limit(1).get();
-    // cursosSnap.docs.map(doc => {
-    //   let curso = { id: doc.id, ...doc.data() };
-    //   let tempDate = curso.date.split("-");
-    //   this.curso.title = curso.name;
-    //   this.curso.date.full = curso.date;
-    //   this.curso.date.dia = tempDate[2];
-    //   this.curso.date.mes = tempDate[1];
-    //   this.curso.description = curso.description;
-    //   this.curso.img = curso.img;
-    //   this.curso.key.id = curso.id;
-    //   return;
-    // });
+    let cursosSnap = await AFirestore.collection(
+      "formacion-docente/programa-formacion/cursos"
+    )
+      .orderBy("date", "desc")
+      .limit(1)
+      .get();
+    cursosSnap.docs.map(doc => {
+      let curso = { id: doc.id, ...doc.data() };
+      this.curso.title = curso.name;
+      this.curso.description = curso.description;
+      this.curso.img = curso.img;
+      this.curso.key.id = curso.id;
+      return;
+    });
     const tipsSnap = await AFirestore.collection(
       "formacion-docente/programa-formacion/tips"
     )
