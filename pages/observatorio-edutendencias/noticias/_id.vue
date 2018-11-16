@@ -1,40 +1,66 @@
 <template>
-  <section class="container">
-    <h1>{{data.nombre}}</h1>
-    <small v-if="data.autor">
-      <i class="fas fa-user"></i> {{data.autor}}
-    </small>
-    <small v-if="data.date">
-      <br>
-      <i class="fas fa-calendar-alt"></i> {{data.date | date}}
-    </small>
-    <hr>
-    <div v-html="data.html"
-         class="html"></div>
-    <button @click="$router.go(-1)"
-            class="btn btn-outline-primary btn-large">Regresar</button>
-  </section>
+  <div>
+    <div v-if="noticia">
+      <header>
+        <h1>{{noticia.name}}</h1>
+      </header>
+      <div class="container">
+        <small v-if="noticia.creator">
+          <i class="fas fa-user"></i> {{noticia.creator}}
+        </small>
+        <small v-if="noticia.edited">
+          <br>
+          <i class="fas fa-calendar-alt"></i> {{noticia.edited | dateTimestamp}}
+        </small>
+        <hr>
+        <div v-html="noticia.html"
+             class="html"></div>
+
+      </div>
+    </div>
+    <div v-else>
+      <div class="container">
+        <p>No se encontro la noticia</p>
+      </div>
+    </div>
+    <div class="container">
+      <button @click="$router.go(-1)"
+              class="btn btn-outline-primary btn-large">Regresar</button>
+    </div>
+  </div>
 </template>
 
 <script>
-import axios from "axios";
+import { AFirestore } from "~/plugins/firebase.js";
 export default {
   async asyncData({ params }) {
-    let { data } = await axios.get(
-      `https://innovaciondocente-utpl.firebaseio.com/observatorio-edutendencias/noticias/${
-        params.id
-      }.json`
-    );
-    return { data };
+    let noticia = null;
+    try {
+      const docSnap = await AFirestore.collection(
+        "observatorio/edutendencias/noticias"
+      )
+        .doc(params.id)
+        .get();
+      if (docSnap.exists) {
+        noticia = { ...docSnap.data(), id: docSnap.id };
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    return { noticia };
   },
   head() {
     return {
-      title: this.data.nombre  ,
+      title: this.noticia
+        ? this.noticia.name
+        : "No se encontro la noticia",
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.data.description
+          content: this.noticia
+            ? this.noticia.description
+            : "No se encontro la noticia"
         }
       ]
     };
@@ -44,4 +70,5 @@ export default {
 
 <style lang="scss" scoped>
 @import "assets/html";
+@import "assets/header";
 </style>
