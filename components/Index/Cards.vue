@@ -19,17 +19,13 @@
 <script>
 import Card from "@/components/Index/Card";
 import axios from "axios";
-import { CursosCollection, AFirestore } from "~/plugins/firebase.js";
+import {  AFirestore } from "~/plugins/firebase.js";
 
 export default {
   data() {
     let noticia = {
       type: "Noticia",
       title: null,
-      date: {
-        dia: "",
-        full: ""
-      },
       description: null,
       img: null,
       key: {
@@ -64,22 +60,20 @@ export default {
     };
   },
   async mounted() {
-    axios
-      .get(
-        'https://innovaciondocente-utpl.firebaseio.com/observatorio-edutendencias/noticias.json?orderBy="%24key"&limitToLast=1'
-      )
-      .then(res => {
-        for (const key in res.data) {
-          this.noticia.title = res.data[key].nombre;
-          let tempDate = res.data[key].date.split("-");
-          this.noticia.date.dia = tempDate[2];
-          this.noticia.date.full = res.data[key].date;
-          this.noticia.description = res.data[key].description;
-          this.noticia.img = res.data[key].img;
-          this.noticia.key.id = key;
-          return;
-        }
-      });
+     let noticiasSnap = await AFirestore.collection(
+      "observatorio/edutendencias/noticias"
+    )
+      .orderBy("edited", "desc")
+      .limit(1)
+      .get();
+    noticiasSnap.docs.map(doc => {
+      let noticia = { id: doc.id, ...doc.data() };
+      this.noticia.title = noticia.name;
+      this.noticia.description = noticia.description;
+      this.noticia.img = noticia.img;
+      this.noticia.key.id = noticia.id;
+      return;
+    });
     let cursosSnap = await AFirestore.collection(
       "formacion-docente/programa-formacion/cursos"
     )
