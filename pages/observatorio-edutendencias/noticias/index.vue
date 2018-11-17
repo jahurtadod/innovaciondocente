@@ -11,13 +11,13 @@
              :style="'background-image: url('+noticia.img+');'">
           <div class="overlay">
             <div class="data">
-              <nuxt-link :to="{name: 'observatorio-edutendencias-noticias-id', params: {id:noticia.key}}"
+              <nuxt-link :to="{name: 'observatorio-edutendencias-noticias-id', params: {id:noticia.id}}"
                          tag="h4">
-                {{noticia.nombre | capitalize}}
+                {{noticia.name | capitalize}}
               </nuxt-link>
               <p>{{noticia.description}}
                 <br>
-                <nuxt-link :to="{name: 'observatorio-edutendencias-noticias-id', params: {id:noticia.key}}">
+                <nuxt-link :to="{name: 'observatorio-edutendencias-noticias-id', params: {id:noticia.id}}">
                   Leer más...
                 </nuxt-link>
               </p>
@@ -30,21 +30,23 @@
 </template>
 
 <script>
-import axios from "axios";
+import { AFirestore } from "~/plugins/firebase.js";
 export default {
   async asyncData() {
-    let { data } = await axios.get(
-      `https://innovaciondocente-utpl.firebaseio.com/observatorio-edutendencias/noticias.json`
-    );
-    return { data };
-  },
-  computed: {
-    noticias() {
-      let resp = [];
-      for (const k in this.data) resp.push({ key: k, ...this.data[k] });
-
-      return resp.sort((a, b) => ("" + b.key).localeCompare(a.key));
+    let noticias;
+    try {
+      const querySnapshot = await AFirestore.collection(
+        "observatorio/edutendencias/noticias"
+      )
+        .orderBy("edited", "desc")
+        .get();
+      noticias = querySnapshot.docs.map(doc =>
+        Object.assign({ id: doc.id }, doc.data())
+      );
+    } catch (error) {
+      console.log(error);
     }
+    return { noticias };
   },
   head() {
     return {
