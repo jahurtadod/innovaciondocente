@@ -38,7 +38,7 @@ export default {
       const querySnapshot = await AFirestore.collection(
         "observatorio/edutendencias/noticias"
       )
-        .orderBy("edited", "desc")
+        .orderBy("created", "desc")
         .get();
       noticias = querySnapshot.docs.map(doc =>
         Object.assign({ id: doc.id }, doc.data())

@@ -63,7 +63,7 @@ export default {
      let noticiasSnap = await AFirestore.collection(
       "observatorio/edutendencias/noticias"
     )
-      .orderBy("edited", "desc")
+      .orderBy("created", "desc")
       .limit(1)
       .get();
     noticiasSnap.docs.map(doc => {
