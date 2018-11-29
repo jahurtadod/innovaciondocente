@@ -17,6 +17,7 @@
             <nuxt-link :to="{name: 'innovacion-docente-buenas-practicas-index'}">Buenas Prácticas</nuxt-link>
             <nuxt-link :to="{name: 'innovacion-docente-convocatorias'}">Convocatorias</nuxt-link>
             <nuxt-link :to="{name: 'innovacion-docente-proyectos-actuales'}">Proyectos Actuales</nuxt-link>
+            <nuxt-link :to="{name: 'innovacion-docente-proyectos-innovacion'}">Proyectos Innovacion</nuxt-link>
             <nuxt-link :to="{name: 'innovacion-docente-proyecto-mentores'}">Proyecto Mentores</nuxt-link>
             <a target="_blank"
                rel="noopener"
