@@ -44,7 +44,8 @@
 <script>
 import { AFirestore } from "~/plugins/firebase.js";
 export default {
-  async asyncData() {
+  async asyncData({query}) {
+    console.log(query);
     let proyectos;
     try {
       const querySnapshot = await AFirestore.collection(
@@ -59,7 +60,8 @@ export default {
       console.log(error);
     }
     return { proyectos };
-  }
+  },
+  watchQuery: ['view','type','area']
 };
 </script>
 
