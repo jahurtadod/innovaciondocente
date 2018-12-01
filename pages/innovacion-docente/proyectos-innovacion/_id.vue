@@ -17,7 +17,8 @@
       <div class="row">
         <div class="col-md-4">
           <!-- proyect type -->
-          <h2>{{getProjectType(proyecto.type) }}</h2>
+
+          <h2>{{proyecto.type | proyectoInnovacionType}}</h2>
           <!-- modality -->
           <h3>Modalidad {{proyecto.modality}}</h3>
           <span v-if="proyecto.area.administrativa ||proyecto.area.biologica ||proyecto.area.sociohumanistica || proyecto.area.tecnica"
@@ -128,11 +129,6 @@ export default {
     return { proyecto };
   },
   methods: {
-    getProjectType: proyectType => {
-      return proyectType == "proyecto-actual"
-        ? "Proyecto de Innovación"
-        : "Buena Práctica";
-    },
     getProjectPeriods: proyectPeriods => {
       let res = "";
       for (let i = 0; i < proyectPeriods.length; i++) {
@@ -232,9 +228,10 @@ ul {
   margin-bottom: $space-elements;
 }
 h2 {
-  font-size: 27px;
+  font-size: 28px;
   font-weight: 400;
   margin-bottom: $space-elements;
+  color: $color-primary;
 }
 h3 {
   font-size: 23px;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <h1>Proyectos Innovacion</h1>
+      <h1>{{queryType|proyectoInnovacionType}}</h1>
     </header>
     <ProjectsCanvas v-if="view === 'canvas'"
                     :proyectos="proyectos"

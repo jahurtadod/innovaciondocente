@@ -19,6 +19,12 @@ Vue.filter('dateTimestamp', (val) => {
     );
 });
 
+Vue.filter('proyectoInnovacionType', proyectType => {
+  return proyectType == "proyecto-actual" ?
+    "Proyectos Actuales" :
+    "Buenas Prácticas";
+});
+
 Vue.filter('date', val => {
   let parts = val.split('-');
 
