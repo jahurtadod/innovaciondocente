@@ -14,9 +14,16 @@
           </button>
           <div class="dropdown-content">
             <nuxt-link :to="{name: 'innovacion-docente-ayudante-catedra'}">Ayudante de Cátedra</nuxt-link>
-            <nuxt-link :to="{name: 'innovacion-docente-buenas-practicas-index'}">Buenas Prácticas</nuxt-link>
+            <nuxt-link :to="{name: 'innovacion-docente-proyectos-innovacion', query:{
+              type:'buena-practica'
+            }}">Buenas
+              Prácticas</nuxt-link>
             <nuxt-link :to="{name: 'innovacion-docente-convocatorias'}">Convocatorias</nuxt-link>
-            <nuxt-link :to="{name: 'innovacion-docente-proyectos-actuales'}">Proyectos Actuales</nuxt-link>
+            <nuxt-link :to="{name: 'innovacion-docente-proyectos-innovacion', query:{
+              type:'proyecto-actual',
+              view:'canvas',
+            }}">Proyectos
+              Actuales</nuxt-link>
             <nuxt-link :to="{name: 'innovacion-docente-proyecto-mentores'}">Proyecto Mentores</nuxt-link>
             <a target="_blank"
                rel="noopener"
@@ -125,7 +132,7 @@ nav {
 }
 .navShadow {
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7);
-  transition: ease-in .2s;
+  transition: ease-in 0.2s;
 }
 
 .nuxt-link-exact-active {
