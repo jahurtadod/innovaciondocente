@@ -17,14 +17,22 @@
           <span><b>Participantes: </b>{{proyecto.participants.length}}</span>
           <div class="card-spacer"></div>
           <div class="card-chips">
-            <span v-if="proyecto.area.administrativa"
-                  class="card-chip-detail area-administrativa">Área Administrativa</span>
-            <span v-if="proyecto.area.biologica"
-                  class="card-chip-detail area-biologica">Área Biológica y Biomédica</span>
-            <span v-if="proyecto.area.sociohumanistica"
-                  class="card-chip-detail area-sociohumanistica">Área Sociohumanística</span>
-            <span v-if="proyecto.area.tecnica"
-                  class="card-chip-detail area-tecnica">Área Técnica</span>
+            <nuxt-link tag="span"
+                       v-if="proyecto.area.administrativa"
+                       :to="{name: 'innovacion-docente-proyectos-innovacion', query:{type:queryType,area:'administrativa'}}"
+                       class="card-chip-detail area-administrativa">Área Administrativa</nuxt-link>
+            <nuxt-link tag="span"
+                       v-if="proyecto.area.biologica"
+                       :to="{name: 'innovacion-docente-proyectos-innovacion', query:{type:queryType,area:'biologica'}}"
+                       class="card-chip-detail area-biologica">Área Biológica y Biomédica</nuxt-link>
+            <nuxt-link tag="span"
+                       v-if="proyecto.area.sociohumanistica"
+                       :to="{name: 'innovacion-docente-proyectos-innovacion', query:{type:queryType,area:'sociohumanistica'}}"
+                       class="card-chip-detail area-sociohumanistica">Área Sociohumanística</nuxt-link>
+            <nuxt-link tag="span"
+                       v-if="proyecto.area.tecnica"
+                       :to="{name: 'innovacion-docente-proyectos-innovacion', query:{type:queryType,area:'tecnica'}}"
+                       class="card-chip-detail area-tecnica">Área Técnica</nuxt-link>
           </div>
           <div class="card-spacer"></div>
           <span href=""
@@ -37,8 +45,7 @@
 
 <script>
 export default {
-  props: ["proyectos"],
-  name: "ProjectsCards"
+  props: ["proyectos", "queryType"],
 };
 </script>
 
