@@ -18,7 +18,6 @@
 
 <script>
 import Card from "@/components/Index/Card";
-import axios from "axios";
 import {  AFirestore } from "~/plugins/firebase.js";
 
 export default {
