@@ -29,14 +29,8 @@
           <span v-if="proyecto.area.administrativa ||proyecto.area.biologica ||proyecto.area.sociohumanistica || proyecto.area.tecnica"
                 class="areas">
             <h3>Areas</h3>
-            <span v-if="proyecto.area.administrativa"
-                  class=" data-field areas-chip-detail area-administrativa">Área Administrativa</span>
-            <span v-if="proyecto.area.biologica"
-                  class=" data-field areas-chip-detail area-biologica">Área Biológica y Biomédica</span>
-            <span v-if="proyecto.area.sociohumanistica"
-                  class=" data-field areas-chip-detail area-sociohumanistica">Área Sociohumanística</span>
-            <span v-if="proyecto.area.tecnica"
-                  class=" data-field areas-chip-detail area-tecnica">Área Técnica</span>
+            <AreasChips :area='proyecto.area'
+                        :queryType='proyecto.type' />
             <div class="spacer"></div>
           </span>
           <!-- Downloadable -->
@@ -118,6 +112,7 @@
 
 <script>
 import { AFirestore } from "~/plugins/firebase.js";
+import AreasChips from "@/components/innovacion-docente/proyectos-innovacion/AreasChips";
 export default {
   async asyncData({ params }) {
     let proyecto = null;
@@ -158,7 +153,7 @@ export default {
       });
     }
   },
-
+  components: { AreasChips },
   head() {
     return {
       title: this.proyecto ? this.proyecto.name : "No se encontro el proyecto"
@@ -168,7 +163,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "assets/areas";
 @import "assets/variables";
 $space-elements: 8px;
 .banner {
@@ -241,21 +235,6 @@ h3 {
 }
 .data-field {
   margin-left: 15px;
-}
-
-.areas {
-  &-chip-detail {
-    border-radius: 3px;
-    padding: 3px 7px;
-    margin-bottom: 8px;
-    margin-right: 8px;
-    border-style: solid;
-    border-width: 3px;
-    letter-spacing: 0.5px;
-    &:hover {
-      cursor: pointer;
-    }
-  }
 }
 </style>
 

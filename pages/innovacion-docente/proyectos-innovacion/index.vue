@@ -3,7 +3,11 @@
     <header>
       <h1>{{queryType|proyectoInnovacionType}}</h1>
     </header>
-    <ProjectsCanvas v-if="view === 'canvas'"
+    <section class="container areas">
+      <AreasChips :area='getAreas'
+                  :queryType='queryType' />
+    </section>
+    <ProjectsCanvas v-if="view && view === 'canvas'"
                     :proyectos="proyectos"
                     :queryType="queryType" />
     <ProjectsCards v-else
@@ -16,6 +20,7 @@
 import { AFirestore } from "~/plugins/firebase.js";
 import ProjectsCards from "@/components/innovacion-docente/proyectos-innovacion/ProjectsCards";
 import ProjectsCanvas from "@/components/innovacion-docente/proyectos-innovacion/ProjectsCanvas";
+import AreasChips from "@/components/innovacion-docente/proyectos-innovacion/AreasChips";
 
 export default {
   async asyncData({ query }) {
@@ -40,9 +45,9 @@ export default {
       }
       // add area filter if exist
       if (query.area) {
-        if (query.area == "administratica")
+        if (query.area == "administrativa")
           proyectosCollection = proyectosCollection.where(
-            "area.administratica",
+            "area.administrativa",
             "==",
             true
           );
@@ -79,9 +84,20 @@ export default {
       view: query.view !== null ? query.view : ""
     };
   },
+  computed: {
+    getAreas() {
+      return {
+        administrativa: true,
+        biologica: true,
+        sociohumanistica: true,
+        tecnica: true
+      };
+    }
+  },
   components: {
     ProjectsCards,
-    ProjectsCanvas
+    ProjectsCanvas,
+    AreasChips
   },
   watchQuery: ["view", "type", "area"]
 };
@@ -90,5 +106,9 @@ export default {
 
 <style lang="scss" scoped>
 @import "assets/header";
+
+.areas {
+  padding-bottom: 0;
+}
 </style>
 
