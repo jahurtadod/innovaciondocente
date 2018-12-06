@@ -1,13 +1,15 @@
 @import 'assets/variables';
+
 .html {
   /deep/ img {
-    width: 100%;
+    width: auto;
     display: block;
     margin-left: auto;
     margin-right: auto;
     padding-top: 20px;
     padding-bottom: 20px;
   }
+
   /deep/ blockquote {
     width: 100%;
     display: block;
@@ -17,6 +19,7 @@
     padding-bottom: 20px;
     text-align: center;
   }
+
   /deep/ .embed-container {
     position: relative;
     margin-left: auto;
@@ -27,6 +30,7 @@
     overflow: hidden;
     margin-top: 20px;
     margin-bottom: 20px;
+
     iframe {
       position: absolute;
       top: 0;
@@ -35,37 +39,51 @@
       height: 100%;
     }
   }
+
   /deep/ [class^="col"] {
     padding: 0;
     margin: 0;
   }
+
+  @media (max-width: 768px) {
+    /deep/ img {
+      width: 100%;
+    }
+  }
+
   @media (min-width: 768px) {
     /deep/ img {
-      width: 80%;
+      height: 80vh;
     }
+
     /deep/ blockquote {
       width: 80%;
     }
+
     /deep/ .embed-container {
       width: 80%;
       padding-bottom: 45%;
     }
   }
+
   /deep/ table {
     border-collapse: collapse;
     width: 100%;
     border: 2px solid $color-primary;
     border-radius: 5px;
     margin-bottom: 25px;
+
     th,
     td {
       text-align: center;
       border: 1px solid $color-primary;
       padding: 8px;
     }
+
     tr:nth-child(odd) {
       background-color: lighten($color: $color-primary, $amount: 55);
     }
+
     th {
       background-color: $color-primary;
       color: $color-text-primary;
