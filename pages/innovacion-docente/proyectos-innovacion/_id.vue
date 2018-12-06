@@ -1,8 +1,13 @@
 <template>
   <div>
     <!-- Img - banner -->
+
     <div class="banner">
-      <div class="parallax"></div>
+      <div v-if="proyecto.img"
+           class="banner-img"
+           :style="getBannerPath(proyecto.img)"></div>
+      <div v-else
+           class="banner-img"></div>
     </div>
     <section class="container">
       <!-- Title -->
@@ -129,6 +134,9 @@ export default {
     return { proyecto };
   },
   methods: {
+    getBannerPath(img) {
+      return "background-image: url(" + img + ");";
+    },
     getProjectPeriods: proyectPeriods => {
       let res = "";
       for (let i = 0; i < proyectPeriods.length; i++) {
@@ -167,8 +175,8 @@ $space-elements: 8px;
   height: 40vh;
   width: 100%;
   overflow: hidden;
-  .parallax {
-    background-image: url("http://www.imagen.com.mx/assets/img/imagen_share.png");
+  &-img {
+    background-image: url("~/static/default.png");
     height: 100%;
     width: 100%;
     background-color: $color-primary;
@@ -176,12 +184,6 @@ $space-elements: 8px;
     background-size: cover;
     background-repeat: no-repeat;
     overflow: hidden;
-  }
-}
-
-@media (pointer: fine) {
-  .parallax {
-    background-attachment: fixed;
   }
 }
 

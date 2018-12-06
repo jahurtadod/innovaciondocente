@@ -7,7 +7,11 @@
                  :to="{name: 'innovacion-docente-proyectos-innovacion-id', params: {id: proyecto.id}}"
                  tag="div">
         <div class="card-header">
-          <div class="card-banner"></div>
+          <div v-if="proyecto.img"
+               class="card-banner"
+               :style="getBannerPath(proyecto.img)"></div>
+          <div v-else
+               class="card-banner"></div>
         </div>
         <div class="card-details">
           <span class="card-title">{{proyecto.name | slice(0,75)}}</span>
@@ -46,6 +50,11 @@
 <script>
 export default {
   props: ["proyectos", "queryType"],
+  methods: {
+    getBannerPath(img) {
+      return "background-image: url(" + img + ");";
+    }
+  }
 };
 </script>
 
@@ -57,7 +66,7 @@ export default {
 .grid-container {
   display: grid;
   grid-gap: 50px;
-  
+
   grid-auto-rows: 400px;
   grid-auto-flow: row dense;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -87,7 +96,7 @@ export default {
       transition: all 0.5s;
       width: 100%;
       height: 100%;
-      background-image: url("http://www.imgworlds.com/wp-content/uploads/2015/12/18-CONTACTUS-HEADER.jpg");
+      background-image: url("~/static/default.png");
       border-radius: 3px 3px 0px 0px;
       background-position: center;
       background-size: cover;

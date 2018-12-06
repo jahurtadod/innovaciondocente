@@ -1,9 +1,7 @@
 <template>
   <div>
     <canvas ref="canvas"
-            id="projectCanvas"
-            width="600"
-            height="600">
+            id="projectCanvas">
     </canvas>
   </div>
 </template>
@@ -24,16 +22,43 @@ export default {
     // init canvas
     this.canvas = this.$refs.canvas;
     this.context = this.canvas.getContext("2d");
-    this.width = this.canvas.width;
-    this.height = this.canvas.height;
+    this.width = this.canvas.width = window.innerWidth;
+    this.height = this.canvas.height = window.innerHeight;
     this.init();
+    this.canvas.addEventListener("mousedown", this.selectProyect);
     window.requestAnimationFrame(() => this.animate());
   },
   methods: {
+    selectProyect(event) {
+      // get mouse position
+      let rect = this.canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      // get if mouse touches circe
+      for (let i = 0; i < this.circles.length; i++) {
+        const circle = this.circles[i];
+        if (
+          this.getDistance(x, y, circle.position.x, circle.position.y) <=
+          circle.radius
+        ) {
+          if (circle.active) continue;
+          circle.active = true;
+          // search for old active circle
+          for (let j = 0; j < this.circles.length; j++) {
+            const tempCircle = this.circles[j];
+            if (tempCircle.data.id == circle.data.id) continue;
+            if (tempCircle.active) tempCircle.active = false;
+          }
+        }
+      }
+    },
     init() {
       // create circles
       for (let i = 0; i < this.proyectos.length; i++) {
-        const radius = this.randomIntFromRange(20, 30);
+        const minRadius = this.randomIntFromRange(35, 50);
+        const maxRadius = 150;
+        const radius = i == 0 ? maxRadius : minRadius;
         let x = this.randomIntFromRange(radius, this.width - radius);
         let y = this.randomIntFromRange(radius, this.height - radius);
 
@@ -46,7 +71,7 @@ export default {
               this.circles[j].position.x,
               this.circles[j].position.y
             ) <
-            2 * radius
+            radius + this.circles[j].radius
           ) {
             // generate new values
             x = this.randomIntFromRange(radius, this.width - radius);
@@ -66,10 +91,13 @@ export default {
             y
           },
           velocity: {
-            x: this.randomIntFromRange(-2, 2),
-            y: this.randomIntFromRange(-2, 2)
+            x: this.randomIntFromRange(-1, 1),
+            y: this.randomIntFromRange(-1, 1)
           },
-          radius: radius,
+          radius,
+          minRadius,
+          maxRadius,
+          active: i == 0,
           mass: 1
         });
       }
@@ -98,10 +126,18 @@ export default {
       );
       this.context.lineWidth = 3;
       this.context.strokeStyle = this.getAreaColor(circle.data.area);
+      this.context.fillStyle = "#f5f5f5";
+      this.context.fill();
       this.context.stroke();
+      this.context.closePath();
     },
     // update
     update(circle) {
+      // update size if necesary
+      if (circle.active) {
+        if (circle.radius < circle.maxRadius) circle.radius++;
+      } else if (circle.radius > circle.minRadius) circle.radius--;
+
       // movement of each particle
       if (
         circle.position.x - circle.radius < 0 ||
