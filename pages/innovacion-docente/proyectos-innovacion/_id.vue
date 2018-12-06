@@ -14,18 +14,14 @@
       <h1>
         {{proyecto.name}}
       </h1>
-      <!-- infografic -->
-      <img v-if="proyecto.infografic"
-           :src="proyecto.infografic"
-           alt="infografia"
-           class="infographic">
+      <ImageModal />
       <div class="row">
         <div class="col-md-4">
           <!-- proyect type -->
-
           <h2>{{proyecto.type | proyectoInnovacionType}}</h2>
           <!-- modality -->
           <h3>Modalidad {{proyecto.modality}}</h3>
+          <!-- areas -->
           <span v-if="proyecto.area.administrativa ||proyecto.area.biologica ||proyecto.area.sociohumanistica || proyecto.area.tecnica"
                 class="areas">
             <h3>Areas</h3>
@@ -33,6 +29,16 @@
                         :queryType='proyecto.type' />
             <div class="spacer"></div>
           </span>
+          <!-- carreers -->
+          <span v-if="proyecto.participants.length > 0">
+            <h3>Carreras Participantes</h3>
+            <ul>
+              <li v-for="(carreer, i) in getProjectCarreers(proyecto.participants)"
+                  :key="i">{{carreer}}</li>
+            </ul>
+            <div class="spacer"></div>
+          </span>
+
           <!-- Downloadable -->
           <span v-if="proyecto.documents.length > 0">
             <h3>Descargables</h3>
@@ -41,16 +47,20 @@
                   :key="i">{{document}}</li>
             </ul>
           </span>
-          <div class="spacer"></div>
-          <!-- carreers -->
-          <span v-if="proyecto.participants.length > 0">
-            <h3>Carreras Participantes</h3>
-            <ul>
-              <li v-for="(carreer, i) in getProjectCarreers(proyecto.participants)"
-                  :key="i">{{carreer}}</li>
-            </ul>
-          </span>
+          <br>
+          <!-- Infografia -->
+          <div v-if="proyecto.infografic">
+            <img v-if="proyecto.infografic"
+                 :src="proyecto.infografic"
+                 alt="infografia">
+            <div class="spacer"></div>
+          </div>
         </div>
+        <!--  -->
+        <!--  -->
+        <!-- left side -->
+        <!--  -->
+        <!--  -->
         <div class="col-md-8">
           <!-- Coordinator -->
           <h3>Coordinador de la propuesta</h3>
@@ -113,6 +123,7 @@
 <script>
 import { AFirestore } from "~/plugins/firebase.js";
 import AreasChips from "@/components/innovacion-docente/proyectos-innovacion/AreasChips";
+import ImageModal from "@/components/utils/ImageModal";
 export default {
   async asyncData({ params }) {
     let proyecto = null;
@@ -153,7 +164,7 @@ export default {
       });
     }
   },
-  components: { AreasChips },
+  components: { AreasChips, ImageModal },
   head() {
     return {
       title: this.proyecto ? this.proyecto.name : "No se encontro el proyecto"
@@ -185,19 +196,6 @@ h1 {
   font-size: 26px;
   font-weight: 600;
   padding-bottom: 15px;
-}
-
-.infographic {
-  display: block;
-  margin-bottom: 25px;
-}
-@media only screen and (min-width: 992px) {
-  .infographic {
-    width: auto;
-    min-height: 90vh;
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 .embed-container {
