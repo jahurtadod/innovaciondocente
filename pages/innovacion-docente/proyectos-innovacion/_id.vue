@@ -1,39 +1,44 @@
 <template>
   <div>
     <!-- Img - banner -->
+
     <div class="banner">
-      <div class="parallax"></div>
+      <div v-if="proyecto.img"
+           class="banner-img"
+           :style="getBannerPath(proyecto.img)"></div>
+      <div v-else
+           class="banner-img"></div>
     </div>
     <section class="container">
       <!-- Title -->
       <h1>
         {{proyecto.name}}
       </h1>
-      <!-- infografic -->
-      <img v-if="proyecto.infografic"
-           :src="proyecto.infografic"
-           alt="infografia"
-           class="infographic">
+      <ImageModal />
       <div class="row">
         <div class="col-md-4">
           <!-- proyect type -->
-
           <h2>{{proyecto.type | proyectoInnovacionType}}</h2>
           <!-- modality -->
           <h3>Modalidad {{proyecto.modality}}</h3>
+          <!-- areas -->
           <span v-if="proyecto.area.administrativa ||proyecto.area.biologica ||proyecto.area.sociohumanistica || proyecto.area.tecnica"
                 class="areas">
             <h3>Areas</h3>
-            <span v-if="proyecto.area.administrativa"
-                  class=" data-field areas-chip-detail area-administrativa">Área Administrativa</span>
-            <span v-if="proyecto.area.biologica"
-                  class=" data-field areas-chip-detail area-biologica">Área Biológica y Biomédica</span>
-            <span v-if="proyecto.area.sociohumanistica"
-                  class=" data-field areas-chip-detail area-sociohumanistica">Área Sociohumanística</span>
-            <span v-if="proyecto.area.tecnica"
-                  class=" data-field areas-chip-detail area-tecnica">Área Técnica</span>
+            <AreasChips :area='proyecto.area'
+                        :queryType='proyecto.type' />
             <div class="spacer"></div>
           </span>
+          <!-- carreers -->
+          <span v-if="proyecto.participants.length > 0">
+            <h3>Carreras Participantes</h3>
+            <ul>
+              <li v-for="(carreer, i) in getProjectCarreers(proyecto.participants)"
+                  :key="i">{{carreer}}</li>
+            </ul>
+            <div class="spacer"></div>
+          </span>
+
           <!-- Downloadable -->
           <span v-if="proyecto.documents.length > 0">
             <h3>Descargables</h3>
@@ -42,16 +47,20 @@
                   :key="i">{{document}}</li>
             </ul>
           </span>
-          <div class="spacer"></div>
-          <!-- carreers -->
-          <span v-if="proyecto.participants.length > 0">
-            <h3>Carreras Participantes</h3>
-            <ul>
-              <li v-for="(carreer, i) in getProjectCarreers(proyecto.participants)"
-                  :key="i">{{carreer}}</li>
-            </ul>
-          </span>
+          <br>
+          <!-- Infografia -->
+          <div v-if="proyecto.infografic">
+            <img v-if="proyecto.infografic"
+                 :src="proyecto.infografic"
+                 alt="infografia">
+            <div class="spacer"></div>
+          </div>
         </div>
+        <!--  -->
+        <!--  -->
+        <!-- left side -->
+        <!--  -->
+        <!--  -->
         <div class="col-md-8">
           <!-- Coordinator -->
           <h3>Coordinador de la propuesta</h3>
@@ -113,6 +122,8 @@
 
 <script>
 import { AFirestore } from "~/plugins/firebase.js";
+import AreasChips from "@/components/innovacion-docente/proyectos-innovacion/AreasChips";
+import ImageModal from "@/components/utils/ImageModal";
 export default {
   async asyncData({ params }) {
     let proyecto = null;
@@ -129,6 +140,9 @@ export default {
     return { proyecto };
   },
   methods: {
+    getBannerPath(img) {
+      return "background-image: url(" + img + ");";
+    },
     getProjectPeriods: proyectPeriods => {
       let res = "";
       for (let i = 0; i < proyectPeriods.length; i++) {
@@ -150,7 +164,7 @@ export default {
       });
     }
   },
-
+  components: { AreasChips, ImageModal },
   head() {
     return {
       title: this.proyecto ? this.proyecto.name : "No se encontro el proyecto"
@@ -160,15 +174,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "assets/areas";
 @import "assets/variables";
 $space-elements: 8px;
 .banner {
   height: 40vh;
   width: 100%;
   overflow: hidden;
-  .parallax {
-    background-image: url("http://www.imagen.com.mx/assets/img/imagen_share.png");
+  &-img {
+    background-image: url("~/static/default.png");
     height: 100%;
     width: 100%;
     background-color: $color-primary;
@@ -179,29 +192,10 @@ $space-elements: 8px;
   }
 }
 
-@media (pointer: fine) {
-  .parallax {
-    background-attachment: fixed;
-  }
-}
-
 h1 {
   font-size: 26px;
   font-weight: 600;
   padding-bottom: 15px;
-}
-
-.infographic {
-  display: block;
-  margin-bottom: 25px;
-}
-@media only screen and (min-width: 992px) {
-  .infographic {
-    width: auto;
-    min-height: 90vh;
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 .embed-container {
@@ -239,21 +233,6 @@ h3 {
 }
 .data-field {
   margin-left: 15px;
-}
-
-.areas {
-  &-chip-detail {
-    border-radius: 3px;
-    padding: 3px 7px;
-    margin-bottom: 8px;
-    margin-right: 8px;
-    border-style: solid;
-    border-width: 3px;
-    letter-spacing: 0.5px;
-    &:hover {
-      cursor: pointer;
-    }
-  }
 }
 </style>
 

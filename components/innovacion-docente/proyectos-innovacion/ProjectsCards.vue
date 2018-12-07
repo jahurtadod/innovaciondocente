@@ -7,7 +7,11 @@
                  :to="{name: 'innovacion-docente-proyectos-innovacion-id', params: {id: proyecto.id}}"
                  tag="div">
         <div class="card-header">
-          <div class="card-banner"></div>
+          <div v-if="proyecto.img"
+               class="card-banner"
+               :style="getBannerPath(proyecto.img)"></div>
+          <div v-else
+               class="card-banner"></div>
         </div>
         <div class="card-details">
           <span class="card-title">{{proyecto.name | slice(0,75)}}</span>
@@ -16,24 +20,8 @@
           <div class="card-spacer"></div>
           <span><b>Participantes: </b>{{proyecto.participants.length}}</span>
           <div class="card-spacer"></div>
-          <div class="card-chips">
-            <nuxt-link tag="span"
-                       v-if="proyecto.area.administrativa"
-                       :to="{name: 'innovacion-docente-proyectos-innovacion', query:{type:queryType,area:'administrativa'}}"
-                       class="card-chip-detail area-administrativa">Área Administrativa</nuxt-link>
-            <nuxt-link tag="span"
-                       v-if="proyecto.area.biologica"
-                       :to="{name: 'innovacion-docente-proyectos-innovacion', query:{type:queryType,area:'biologica'}}"
-                       class="card-chip-detail area-biologica">Área Biológica y Biomédica</nuxt-link>
-            <nuxt-link tag="span"
-                       v-if="proyecto.area.sociohumanistica"
-                       :to="{name: 'innovacion-docente-proyectos-innovacion', query:{type:queryType,area:'sociohumanistica'}}"
-                       class="card-chip-detail area-sociohumanistica">Área Sociohumanística</nuxt-link>
-            <nuxt-link tag="span"
-                       v-if="proyecto.area.tecnica"
-                       :to="{name: 'innovacion-docente-proyectos-innovacion', query:{type:queryType,area:'tecnica'}}"
-                       class="card-chip-detail area-tecnica">Área Técnica</nuxt-link>
-          </div>
+          <AreasChips :area='proyecto.area'
+                      :queryType='queryType'  />
           <div class="card-spacer"></div>
           <span href=""
                 class="card-btn">Ver Proyecto</span>
@@ -44,19 +32,28 @@
 </template>
 
 <script>
+import AreasChips from "@/components/innovacion-docente/proyectos-innovacion/AreasChips";
 export default {
   props: ["proyectos", "queryType"],
+  methods: {
+    getBannerPath(img) {
+      return "background-image: url(" + img + ");";
+    }
+  },
+  components: {
+    AreasChips
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "assets/areas";
 @import "assets/variables";
 @import "assets/header";
 
 .grid-container {
   display: grid;
   grid-gap: 50px;
+
   grid-auto-rows: 400px;
   grid-auto-flow: row dense;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -86,7 +83,7 @@ export default {
       transition: all 0.5s;
       width: 100%;
       height: 100%;
-      background-image: url("http://www.imgworlds.com/wp-content/uploads/2015/12/18-CONTACTUS-HEADER.jpg");
+      background-image: url("~/static/default.png");
       border-radius: 3px 3px 0px 0px;
       background-position: center;
       background-size: cover;
@@ -111,21 +108,7 @@ export default {
     font-size: 20px !important;
     line-height: 32px;
   }
-  &-chips {
-    display: -webkit-flex; /* Safari */
-    -webkit-flex-wrap: wrap; /* Safari 6.1+ */
-    display: flex;
-    flex-wrap: wrap;
-  }
-  &-chip-detail {
-    border-radius: 3px;
-    padding: 3px 7px;
-    margin-bottom: 8px;
-    margin-right: 8px;
-    border-style: solid;
-    border-width: 3px;
-    letter-spacing: 0.5px;
-  }
+
   &-btn {
     color: $color-primary;
     cursor: pointer;

@@ -15,6 +15,7 @@
           <div class="dropdown-content">
             <nuxt-link :to="{name: 'innovacion-docente-ayudante-catedra'}">Ayudante de Cátedra</nuxt-link>
             <nuxt-link :to="{name: 'innovacion-docente-proyectos-innovacion', query:{
+              view:'normal',
               type:'buena-practica'
             }}">Buenas
               Prácticas</nuxt-link>
