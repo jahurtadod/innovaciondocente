@@ -2,15 +2,14 @@
   <div>
     <img id="img"
          :src="img"
-         alt="Northern Lights, Norway"
+         alt="Img"
          class="img"
          v-on:click='openImage'>
 
     <!-- image Modal -->
     <div class="modal"
          ref="modal"
-         @keyup.esc="close"
-         @click="close">
+         @keyup.esc="close">
       <span class="modal-close"
             ref="close"
             @click="close">×</span>
@@ -24,12 +23,7 @@
 
 <script>
 export default {
-  data() {
-    return {
-      img:
-        "https://about.canva.com/wp-content/uploads/sites/3/2015/01/timeline_infographic.png"
-    };
-  },
+  props: ["img"],
   methods: {
     openImage() {
       let body = document.querySelector("body");
@@ -46,17 +40,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.img {
-  width: auto;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-  max-height: 80vh;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .img:hover {
   opacity: 0.7;
 }
@@ -65,23 +48,25 @@ export default {
   display: none;
   position: fixed;
   z-index: 2000;
-  padding-top: 100px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
   background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.9);
-  cursor: url("~/static/close.svg"), pointer;
+  background-color: rgba(0, 0, 0, 0.95);
+  cursor: auto;
   &-img {
-    cursor: auto;
     margin: auto;
     display: block;
     width: 80%;
     max-width: 700px;
     @media only screen and (max-width: 700px) {
       & {
+        padding-top: 80px;
+        padding-bottom: 0;
         width: 100%;
       }
     }
@@ -95,7 +80,7 @@ export default {
     top: 15px;
     right: 35px;
     color: #f1f1f1;
-    font-size: 40px;
+    font-size: 45px;
     font-weight: bold;
     transition: 0.3s;
     &:hover,

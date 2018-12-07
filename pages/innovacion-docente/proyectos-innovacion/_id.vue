@@ -14,7 +14,6 @@
       <h1>
         {{proyecto.name}}
       </h1>
-      <ImageModal />
       <div class="row">
         <div class="col-md-4">
           <!-- proyect type -->
@@ -50,9 +49,8 @@
           <br>
           <!-- Infografia -->
           <div v-if="proyecto.infografic">
-            <img v-if="proyecto.infografic"
-                 :src="proyecto.infografic"
-                 alt="infografia">
+            <ImageModal :img='proyecto.infografic'
+                        class="infografic" />
             <div class="spacer"></div>
           </div>
         </div>
@@ -196,6 +194,17 @@ h1 {
   font-size: 26px;
   font-weight: 600;
   padding-bottom: 15px;
+}
+
+.infografic {
+  width: auto;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  max-height: 80vh;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .embed-container {
