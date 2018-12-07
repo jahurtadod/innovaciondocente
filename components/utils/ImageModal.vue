@@ -32,10 +32,14 @@ export default {
   },
   methods: {
     openImage() {
+      let body = document.querySelector("body");
       this.$refs.modal.style.display = "block";
+      document.documentElement.style.overflow = "hidden";
     },
     close() {
+      let body = document.querySelector("body");
       this.$refs.modal.style.display = "none";
+      document.documentElement.style.overflow = "auto";
     }
   }
 };
@@ -57,20 +61,19 @@ export default {
   opacity: 0.7;
 }
 
-/* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 2000; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  padding-top: 100px;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
-  cursor: url('~/static/close.svg'), pointer;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.9);
+  cursor: url("~/static/close.svg"), pointer;
   &-img {
     cursor: auto;
     margin: auto;
