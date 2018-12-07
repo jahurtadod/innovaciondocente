@@ -11,15 +11,14 @@
          ref="modal"
          @keyup.esc="close">
       <span class="modal-close"
-            ref="close"
             @click="close">×</span>
       <div class="modal-embed-container"
-           v-if="videoID">
-        <iframe :src="'https://www.youtube.com/embed/'+videoID"
+           v-if="seletedID">
+        <iframe :src="'https://www.youtube.com/embed/'+seletedID+'?enablejsapi=1&html5=1'"
                 frameborder="0"
                 title="Proyecto Video"
                 allow="autoplay; encrypted-media"
-                allowfullscreen='false'></iframe>
+                allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -27,16 +26,21 @@
 
 <script>
 export default {
+  data: () => {
+    return {
+      seletedID: null
+    };
+  },
   props: ["videoID"],
   methods: {
     openImage() {
-      let body = document.querySelector("body");
+      this.seletedID = this.videoID;
       this.$refs.modal.style.display = "block";
       document.documentElement.style.overflow = "hidden";
     },
     close() {
-      let body = document.querySelector("body");
       this.$refs.modal.style.display = "none";
+      this.seletedID = null;
       document.documentElement.style.overflow = "auto";
     }
   }
@@ -82,7 +86,7 @@ export default {
     animation-duration: 0.6s;
     @media only screen and (max-width: $width) {
       & {
-        padding-top: 80px;
+        margin-top: 80px;
         padding-bottom: 0;
         width: 100%;
       }
