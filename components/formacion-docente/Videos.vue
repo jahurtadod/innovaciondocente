@@ -6,13 +6,8 @@
       <div class="row">
         <div class="col-xl-7 col-lg-8">
           <h3>#InnovaciónenlaUTPL</h3>
-          <div class="embed-container">
-            <iframe :src="'https://www.youtube.com/embed/'+tips.youtube"
-                    frameborder="0"
-                    allow="encrypted-media"
-                    :title="tips.youtube"
-                    allowfullscreen></iframe>
-          </div>
+          <VideoModal :videoID='tips.youtube' />
+
           <a target="_blank"
              rel="noopener"
              class="btn btn-inverse btn-large"
@@ -23,13 +18,7 @@
         <div class="col-xl-5 col-lg-4"
              v-if="tip">
           <h3>{{tip.name}}</h3>
-          <div class="embed-container">
-            <iframe :src="'https://www.youtube.com/embed/'+tip.id"
-                    frameborder="0"
-                    allow="encrypted-media"
-                    title="video"
-                    allowfullscreen></iframe>
-          </div>
+          <VideoModal :videoID='tip.id' />
           <p class="auto-break">{{tip.description|slice(0,250)}}</p>
           <router-link class="btn btn-inverse btn-large"
                        :to="{name: 'formacion-docente-programa-formacion-potencia-formacion'}">
@@ -44,6 +33,8 @@
 
 <script>
 import { AFirestore } from "~/plugins/firebase.js";
+import VideoModal from "@/components/utils/VideoModal";
+
 export default {
   props: ["tips"],
   data() {
@@ -57,7 +48,8 @@ export default {
       .limit(1)
       .get();
     tipsSnap.docs.map(doc => (this.tip = { id: doc.id, ...doc.data() }));
-  }
+  },
+  components: { VideoModal }
 };
 </script>
 
@@ -66,19 +58,5 @@ export default {
 section {
   background-color: $color-primary;
   color: $color-text-primary;
-}
-
-.embed-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-}
-.embed-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }
 </style>

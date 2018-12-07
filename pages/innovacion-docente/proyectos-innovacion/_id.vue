@@ -102,7 +102,8 @@
           <br>
 
           <!-- video -->
-          <VideoModal :videoID='proyecto.videoID' />
+          <VideoModal :videoID='proyecto.videoID'
+                      maxRes="true" />
         </div>
 
       </div>
@@ -188,8 +189,6 @@ h1 {
   font-weight: 600;
   padding-bottom: 15px;
 }
-
-
 
 .spacer {
   margin-bottom: $space-elements;

@@ -1,8 +1,8 @@
 <template>
   <div>
     <img id="img"
-         :src="`https://i.ytimg.com/vi/${videoID}/maxresdefault.jpg`"
-         alt="Video Img"
+         :src="this.getImage"
+         :alt="'Imagen Video '+ videoID"
          class="img"
          v-on:click='openImage'>
 
@@ -16,7 +16,7 @@
            v-if="seletedID">
         <iframe :src="'https://www.youtube.com/embed/'+seletedID+'?enablejsapi=1&html5=1'"
                 frameborder="0"
-                title="Proyecto Video"
+                :title="'Video '+ videoID"
                 allow="autoplay; encrypted-media"
                 allowfullscreen></iframe>
       </div>
@@ -31,8 +31,15 @@ export default {
       seletedID: null
     };
   },
-  props: ["videoID"],
+  props: ["videoID", "maxRes"],
+  computed: {
+    getImage() {
+      const res = this.maxRes === null ? "hqdefault" : "maxresdefault";
+      return `https://i.ytimg.com/vi/${this.videoID}/${res}.jpg`;
+    }
+  },
   methods: {
+    // TODO: https://codepen.io/AmrSubZero/pen/oLOYrA
     openImage() {
       this.seletedID = this.videoID;
       this.$refs.modal.style.display = "block";
@@ -62,8 +69,7 @@ export default {
   display: none;
   position: fixed;
   z-index: 2000;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 130px;
   left: 0;
   top: 0;
   width: 100%;
@@ -86,8 +92,7 @@ export default {
     animation-duration: 0.6s;
     @media only screen and (max-width: $width) {
       & {
-        margin-top: 80px;
-        padding-bottom: 0;
+        padding-top: 130px;
         width: 100%;
       }
     }
