@@ -49,8 +49,7 @@
           <br>
           <!-- Infografia -->
           <div v-if="proyecto.infografic">
-            <ImageModal :img='proyecto.infografic'
-                        class="infografic" />
+            <ImageModal :img='proyecto.infografic' />
             <div class="spacer"></div>
           </div>
         </div>
@@ -103,14 +102,7 @@
           <br>
 
           <!-- video -->
-          <div class="embed-container"
-               v-if="proyecto.videoID">
-            <iframe :src="'https://www.youtube.com/embed/'+proyecto.videoID"
-                    frameborder="0"
-                    title="tip"
-                    allow="autoplay; encrypted-media"
-                    allowfullscreen></iframe>
-          </div>
+          <VideoModal :videoID='proyecto.videoID' />
         </div>
 
       </div>
@@ -122,6 +114,7 @@
 import { AFirestore } from "~/plugins/firebase.js";
 import AreasChips from "@/components/innovacion-docente/proyectos-innovacion/AreasChips";
 import ImageModal from "@/components/utils/ImageModal";
+import VideoModal from "@/components/utils/VideoModal";
 export default {
   async asyncData({ params }) {
     let proyecto = null;
@@ -162,7 +155,7 @@ export default {
       });
     }
   },
-  components: { AreasChips, ImageModal },
+  components: { AreasChips, ImageModal, VideoModal },
   head() {
     return {
       title: this.proyecto ? this.proyecto.name : "No se encontro el proyecto"
@@ -196,32 +189,7 @@ h1 {
   padding-bottom: 15px;
 }
 
-.infografic {
-  width: auto;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-  max-height: 80vh;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-}
 
-.embed-container {
-  margin-top: $space-elements;
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-  margin-bottom: $space-elements;
-}
-.embed-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
 
 .spacer {
   margin-bottom: $space-elements;

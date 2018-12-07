@@ -1,8 +1,8 @@
 <template>
   <div>
     <img id="img"
-         :src="img"
-         alt="Img"
+         :src="`https://i.ytimg.com/vi/${videoID}/maxresdefault.jpg`"
+         alt="Video Img"
          class="img"
          v-on:click='openImage'>
 
@@ -13,17 +13,21 @@
       <span class="modal-close"
             ref="close"
             @click="close">×</span>
-      <img :src="img"
-           class="modal-img"
-           id="img01"
-           ref='modalImg'>
+      <div class="modal-embed-container"
+           v-if="videoID">
+        <iframe :src="'https://www.youtube.com/embed/'+videoID"
+                frameborder="0"
+                title="Proyecto Video"
+                allow="autoplay; encrypted-media"
+                allowfullscreen='false'></iframe>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["img"],
+  props: ["videoID"],
   methods: {
     openImage() {
       let body = document.querySelector("body");
@@ -64,22 +68,32 @@ export default {
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.95);
   cursor: auto;
-  &-img {
-    margin: auto;
-    display: block;
+  &-embed-container {
+    $width: 1200px;
     width: 80%;
-    max-width: 700px;
-    @media only screen and (max-width: 700px) {
+    max-width: $width;
+    height: $width * 9 /16;
+    position: relative;
+    overflow: hidden;
+    margin: auto;
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+    @media only screen and (max-width: $width) {
       & {
         padding-top: 80px;
         padding-bottom: 0;
         width: 100%;
       }
     }
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
   &-close {
     position: absolute;
