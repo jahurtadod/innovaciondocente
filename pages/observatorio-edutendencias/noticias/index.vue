@@ -114,9 +114,7 @@ $size: 250px;
     );
     .data {
       padding: 20px;
-      position: absolute;
-      bottom: 0px;
-      max-width: 100%;
+      
       max-height: 100%;
       overflow: auto;
       text-align: justify;

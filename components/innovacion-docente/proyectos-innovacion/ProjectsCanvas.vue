@@ -1,8 +1,15 @@
 <template>
-  <div>
+  <div class="stack">
+
     <canvas ref="canvas"
-            id="projectCanvas">
+            id="projectCanvas"
+            class="stack-canvas">
     </canvas>
+    <div class="stack-card">
+      <div class="stack-card-content">
+        <p>Hola</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -52,7 +59,7 @@ export default {
             minToMax: Math.floor(this.randomIntFromRange(1, 2)) % 2 === 0
           },
           radians: this.randomIntFromRange(0, Math.PI * 2),
-          velocity: this.randomIntFromRange(2, 5) / 2000,
+          velocity: this.randomIntFromRange(1, 5) / 2000,
           radius
         });
       }
@@ -90,8 +97,8 @@ export default {
       circle.radians += circle.velocity;
       // update distance from center
       circle.distance += circle.bounce.minToMax
-        ? circle.radius / 100
-        : -circle.radius / 100;
+        ? circle.radius / this.randomIntFromRange(100, 300)
+        : -circle.radius / this.randomIntFromRange(100, 300);
       if (circle.distance > circle.bounce.max) circle.bounce.minToMax = false;
       if (circle.distance < circle.bounce.min) circle.bounce.minToMax = true;
     },
@@ -105,19 +112,33 @@ export default {
     },
     randomIntFromRange(min, max) {
       return Math.random() * (max - min + 1) + min;
-    },
-    getDistance(x1, y1, x2, y2) {
-      // pythagoras
-      let dx = x2 - x1;
-      let dy = y2 - y1;
-      return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-    },
-    getDistanceFromCenter(x, y) {
-      // pythagoras
-      let dx = x - this.center;
-      let dy = y - this.center;
-      return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
     }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.stack {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  &-canvas {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &-card {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    &-content {
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      border: solid;
+    }
+  }
+}
+</style>
+
