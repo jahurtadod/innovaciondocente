@@ -21,10 +21,9 @@
           <span><b>Participantes: </b>{{proyecto.participants.length}}</span>
           <div class="card-spacer"></div>
           <AreasChips :area='proyecto.area'
-                      :queryType='queryType'  />
+                      :queryType='queryType' />
           <div class="card-spacer"></div>
-          <span href=""
-                class="card-btn">Ver Proyecto</span>
+          <span class="card-btn">Ver Proyecto</span>
         </div>
       </nuxt-link>
     </div>
@@ -48,7 +47,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "assets/variables";
-@import "assets/header";
 
 .grid-container {
   display: grid;

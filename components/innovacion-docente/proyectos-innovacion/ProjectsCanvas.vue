@@ -5,9 +5,19 @@
             id="projectCanvas"
             class="stack-canvas">
     </canvas>
-    <div class="stack-card">
+    <div class="stack-card"
+         v-if="selectedProject">
       <div class="stack-card-content">
-        <p>Hola</p>
+        <span class="stack-card-title">{{selectedProject.name | slice(0,45)}}</span>
+        <div class="stack-card-spacer"></div>
+        <span class="stack-card-span"><b>Coordinador: </b>{{selectedProject.coordinator}}</span>
+        <div class="stack-card-spacer"></div>
+        <span class="stack-card-span"><b>Participantes: </b>{{selectedProject.participants.length}}</span>
+        <div class="stack-card-spacer"></div>
+        <nuxt-link class="stack-card-btn"
+                   :to="{name: 'innovacion-docente-proyectos-innovacion-id', params: {id: selectedProject.id}}"
+                   tag="span">Ver Proyecto
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -24,7 +34,8 @@ export default {
       height: null,
       center: null,
       radius: null,
-      circles: []
+      circles: [],
+      selectedProject: null
     };
   },
   mounted() {
@@ -38,7 +49,7 @@ export default {
     };
     this.center = this.size / 2;
     this.init();
-    this.canvas.addEventListener("mousedown", this.selectProyect);
+    this.canvas.addEventListener("mousedown", this.selectProject);
     window.requestAnimationFrame(() => this.animate());
   },
   methods: {
@@ -52,7 +63,6 @@ export default {
           this.radius.max - radius
         );
         this.circles.push({
-          active: i === 0,
           data: { ...this.proyectos[i] },
           distance,
           bounce: {
@@ -62,9 +72,16 @@ export default {
           },
           radians: this.randomIntFromRange(0, Math.PI * 2),
           velocity: this.randomIntFromRange(1, 5) / 2000,
-          radius
+          radius,
+          active: false
         });
       }
+
+      const selectedIndex = Math.floor(
+        this.randomIntFromRange(0, this.circles.length - 1)
+      );
+      this.selectedProject = this.circles[selectedIndex].data;
+      this.circles[selectedIndex].active = true;
     },
     // main loop
     animate() {
@@ -104,7 +121,7 @@ export default {
       if (circle.distance > circle.bounce.max) circle.bounce.minToMax = false;
       if (circle.distance < circle.bounce.min) circle.bounce.minToMax = true;
     },
-    selectProyect(event) {
+    selectProject(event) {
       // get mouse position
       // offset from center of canvas
       let rect = this.canvas.getBoundingClientRect();
@@ -128,6 +145,7 @@ export default {
         ) {
           console.log(circle.data.id);
           circle.active = true;
+          this.selectedProject = circle.data;
           return;
         }
       }
@@ -154,6 +172,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "assets/variables";
+
 .stack {
   position: relative;
   height: 100%;
@@ -173,6 +193,39 @@ export default {
       width: 340px;
       height: 340px;
       border: solid;
+      align-self: center;
+      display: flex;
+      flex-direction: column;
+    }
+    &-title {
+      display: block;
+      font-size: 20px !important;
+      line-height: 26px;
+      text-align: center;
+      padding-top: 50px;
+      width: 60%;
+      margin: 0 auto;
+    }
+    &-span {
+      width: 80%;
+      margin: 0 auto;
+      font-size: 16px;
+      text-align: center;
+    }
+    &-spacer {
+      height: 13px;
+    }
+
+    &-btn {
+      color: $color-primary;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin-top: auto;
+      text-align: center;
+      padding-bottom: 30px;
     }
   }
 }

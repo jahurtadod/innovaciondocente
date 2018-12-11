@@ -103,7 +103,8 @@
 
           <!-- video -->
           <VideoModal :videoID='proyecto.videoID'
-                      maxRes="true" />
+                      maxRes="true"
+                      v-if="proyecto.videoID" />
         </div>
 
       </div>
