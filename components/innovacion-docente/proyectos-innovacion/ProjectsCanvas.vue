@@ -33,11 +33,12 @@ export default {
     this.context = this.canvas.getContext("2d");
     this.size = this.canvas.width = this.canvas.height = 720;
     this.radius = {
-      min: 340 / 2,
-      max: this.size / 2
+      min: 400 / 2,
+      max: 600 / 2
     };
     this.center = this.size / 2;
     this.init();
+    this.canvas.addEventListener("mousedown", this.selectProyect);
     window.requestAnimationFrame(() => this.animate());
   },
   methods: {
@@ -51,6 +52,7 @@ export default {
           this.radius.max - radius
         );
         this.circles.push({
+          active: i === 0,
           data: { ...this.proyectos[i] },
           distance,
           bounce: {
@@ -88,7 +90,7 @@ export default {
       );
       this.context.lineWidth = 3;
       this.context.strokeStyle = this.getAreaColor(circle.data.area);
-      this.context.fillStyle = "#f5f5f5";
+      this.context.fillStyle = circle.active ? "#f500f5" : "#f5f5f5";
       this.context.fill();
       this.context.stroke();
       this.context.closePath();
@@ -102,6 +104,34 @@ export default {
       if (circle.distance > circle.bounce.max) circle.bounce.minToMax = false;
       if (circle.distance < circle.bounce.min) circle.bounce.minToMax = true;
     },
+    selectProyect(event) {
+      // get mouse position
+      // offset from center of canvas
+      let rect = this.canvas.getBoundingClientRect();
+      const mouse = {
+        x: event.clientX - rect.left - this.center,
+        y: event.clientY - rect.top - this.center
+      };
+      // get if mouse touches circe
+      for (let i = 0; i < this.circles.length; i++) {
+        const circle = this.circles[i];
+
+        const x = circle.distance * Math.cos(circle.radians);
+        const y = circle.distance * Math.sin(circle.radians);
+
+        if (
+          // TODO: add distance to center of each and select closer
+          mouse.x > x - circle.radius &&
+          mouse.x < x + circle.radius &&
+          mouse.y > y - circle.radius &&
+          mouse.y < y + circle.radius
+        ) {
+          console.log(circle.data.id);
+          circle.active = true;
+          return;
+        }
+      }
+    },
     // utils
     getAreaColor(area) {
       if (area.administrativa) return "#979797";
@@ -112,6 +142,12 @@ export default {
     },
     randomIntFromRange(min, max) {
       return Math.random() * (max - min + 1) + min;
+    },
+    getDistance(x1, y1, x2, y2) {
+      // pythagoras
+      let dx = x2 - x1;
+      let dy = y2 - y1;
+      return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
     }
   }
 };
@@ -133,9 +169,9 @@ export default {
     top: 50%;
     left: 50%;
     &-content {
+      border-radius: 50%;
       width: 340px;
       height: 340px;
-      border-radius: 50%;
       border: solid;
     }
   }
