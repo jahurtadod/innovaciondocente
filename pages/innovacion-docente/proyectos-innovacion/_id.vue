@@ -1,19 +1,22 @@
 <template>
   <div>
-    <!-- Img - banner -->
-
-    <div class="banner">
-      <div v-if="proyecto.img"
-           class="banner-img"
-           :style="getBannerPath(proyecto.img)"></div>
-      <div v-else
-           class="banner-img"></div>
-    </div>
-    <section class="container">
-      <!-- Title -->
+    <!-- Title -->
+    <header>
       <h1>
         {{proyecto.name}}
       </h1>
+    </header>
+
+    <section class="container">
+      <!-- Img - banner -->
+      <div class="banner">
+        <div v-if="proyecto.img"
+             class="banner-img"
+             :style="getBannerPath(proyecto.img)"></div>
+        <div v-else
+             class="banner-img"></div>
+      </div>
+      <div class="spacer"></div>
       <div class="row">
         <div class="col-md-4">
           <!-- proyect type -->
@@ -168,6 +171,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "assets/variables";
+@import "assets/header";
 $space-elements: 8px;
 .banner {
   height: 40vh;
