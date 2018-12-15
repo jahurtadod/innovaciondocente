@@ -143,9 +143,15 @@ export default {
           mouse.y > y - circle.radius &&
           mouse.y < y + circle.radius
         ) {
-          console.log(circle.data.id);
           circle.active = true;
           this.selectedProject = circle.data;
+          // search for actual active project
+          for (let i = 0; i < this.circles.length; i++) {
+            if (this.circles[i].active) {
+              if (this.circles[i].data.id !== this.selectedProject.id)
+                this.circles[i].active = false;
+            }
+          }
           return;
         }
       }
