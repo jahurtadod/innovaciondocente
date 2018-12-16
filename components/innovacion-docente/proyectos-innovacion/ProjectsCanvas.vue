@@ -5,23 +5,25 @@
             id="projectCanvas"
             class="stack-canvas">
     </canvas>
-    <div class="stack-card"
-         v-if="selectedProject">
-      <div class="stack-card-content">
-        <span class="stack-card-title">{{selectedProject.name | slice(0,45)}}</span>
-        <div class="stack-card-spacer"></div>
-        <span class="stack-card-span"><b>Coordinador: </b>{{selectedProject.coordinator}}</span>
-        <div class="stack-card-spacer"></div>
-        <span class="stack-card-span"><b>Participantes: </b>{{selectedProject.participants.length}}</span>
-        <div class="stack-card-spacer"></div>
-        <div class="stack-card-btn">
-          <nuxt-link class="stack-card-btn-link"
-                     :to="{name: 'innovacion-docente-proyectos-innovacion-id', params: {id: selectedProject.id}}"
-                     tag="a">Ver Proyecto
-          </nuxt-link>
+    <transition name="fade">
+      <div class="stack-card"
+           v-if="selectedProject &&isSelectedProject">
+        <div class="stack-card-content">
+          <span class="stack-card-title">{{selectedProject.name | slice(0,45)}}</span>
+          <div class="stack-card-spacer"></div>
+          <span class="stack-card-span"><b>Coordinador: </b>{{selectedProject.coordinator}}</span>
+          <div class="stack-card-spacer"></div>
+          <span class="stack-card-span"><b>Participantes: </b>{{selectedProject.participants.length}}</span>
+          <div class="stack-card-spacer"></div>
+          <div class="stack-card-btn">
+            <nuxt-link class="stack-card-btn-link"
+                       :to="{name: 'innovacion-docente-proyectos-innovacion-id', params: {id: selectedProject.id}}"
+                       tag="a">Ver Proyecto
+            </nuxt-link>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -37,7 +39,8 @@ export default {
       center: null,
       radius: null,
       circles: [],
-      selectedProject: null
+      selectedProject: null,
+      isSelectedProject: false
     };
   },
   mounted() {
@@ -58,7 +61,7 @@ export default {
     init() {
       // create circles
       for (let i = 0; i < this.proyectos.length; i++) {
-        const radius = this.randomIntFromRange(20, 30);
+        const radius = Math.floor(this.randomIntFromRange(20, 30));
         // distance from center
         const distance = this.randomIntFromRange(
           this.radius.min + radius,
@@ -75,6 +78,8 @@ export default {
           radians: this.randomIntFromRange(0, Math.PI * 2),
           velocity: this.randomIntFromRange(1, 5) / 2000,
           radius,
+          maxRadius: radius,
+          activeRadius: 0,
           active: false
         });
       }
@@ -89,42 +94,74 @@ export default {
     animate() {
       this.context.clearRect(0, 0, this.size, this.size);
       // do stuff
-      this.circles.forEach(p => {
-        this.update(p);
-        this.draw(p);
-      });
+      for (let i = 0; i < this.circles.length; i++) {
+        this.update(this.circles[i]);
+        this.draw(this.circles[this.circles.length - i - 1]);
+      }
 
       window.requestAnimationFrame(() => this.animate());
     },
     // draw
     draw(circle) {
-      this.context.beginPath();
-      this.context.arc(
-        this.center + circle.distance * Math.cos(circle.radians),
-        this.center + circle.distance * Math.sin(circle.radians),
-        circle.radius,
-        0,
-        Math.PI * 2,
-        false
-      );
-      if (!circle.active) {
+      if (circle.radius > 1) {
+        this.context.beginPath();
+        this.context.arc(
+          this.center + circle.distance * Math.cos(circle.radians),
+          this.center + circle.distance * Math.sin(circle.radians),
+          circle.radius,
+          0,
+          Math.PI * 2,
+          false
+        );
         this.context.lineWidth = 3;
         this.context.strokeStyle = this.getAreaColor(circle.data.area);
         this.context.fillStyle = "#f5f5f5";
         this.context.fill();
         this.context.stroke();
         this.context.closePath();
-      } else {
+      }
+      if (circle.active) {
+        this.context.beginPath();
+        this.context.arc(
+          this.center,
+          this.center,
+          circle.activeRadius,
+          0,
+          Math.PI * 2,
+          false
+        );
+        this.context.lineWidth = 3;
+        this.context.strokeStyle = this.getAreaColor(circle.data.area);
+        this.context.fillStyle = "#f5f5f5";
+        this.context.fill();
+        this.context.stroke();
+        this.context.closePath();
       }
     },
     update(circle) {
-      circle.radians += circle.velocity;
-      // update distance from center
-      circle.distance += circle.bounce.minToMax
-        ? circle.radius / this.randomIntFromRange(100, 300)
-        : -circle.radius / this.randomIntFromRange(100, 300);
-      if (circle.distance > circle.bounce.max) circle.bounce.minToMax = false;
-      if (circle.distance < circle.bounce.min) circle.bounce.minToMax = true;
+      if (circle.radius > 1) {
+        circle.radians += circle.velocity;
+        // update distance from center
+        circle.distance += circle.bounce.minToMax
+          ? circle.radius / this.randomIntFromRange(100, 300)
+          : -circle.radius / this.randomIntFromRange(100, 300);
+        if (circle.distance > circle.bounce.max) circle.bounce.minToMax = false;
+        if (circle.distance < circle.bounce.min) circle.bounce.minToMax = true;
+      }
+      // update state of selected circle only selected project
+      if (this.selectedProject.id === circle.data.id) {
+        this.isSelectedProject = circle.active && circle.activeRadius >= 170;
+      }
+      // make sure radius is correct
+      if (circle.active && circle.radius > 0) circle.radius--;
+      else if (circle.radius <= circle.maxRadius) circle.radius++;
+      if (circle.active && circle.activeRadius <= 170) {
+        circle.activeRadius += 2;
+      }
+      // small old active radius
+      if (!circle.active && circle.activeRadius > 0) {
+        circle.activeRadius--;
+      }
     },
     selectProject(event) {
       // get mouse position
@@ -189,6 +226,19 @@ export default {
 <style lang="scss" scoped>
 @import "assets/variables";
 
+.fade-enter-active {
+  transition: opacity 0.25s ease-out;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-leave-active,
+.fade-leave-to {
+  display: none;
+}
+
 .stack {
   position: relative;
   height: 100%;
@@ -203,12 +253,11 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
-
+    opacity: 1;
     &-content {
       border-radius: 50%;
       width: 340px;
       height: 340px;
-      border: solid;
       align-self: center;
       display: flex;
       flex-direction: column;
