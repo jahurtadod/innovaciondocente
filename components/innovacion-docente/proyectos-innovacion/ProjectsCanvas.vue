@@ -1,8 +1,29 @@
 <template>
-  <div>
+  <div class="stack">
+
     <canvas ref="canvas"
-            id="projectCanvas">
+            id="projectCanvas"
+            class="stack-canvas">
     </canvas>
+    <transition name="fade">
+      <div class="stack-card"
+           v-if="selectedProject &&isSelectedProject">
+        <div class="stack-card-content">
+          <span class="stack-card-title">{{selectedProject.name | slice(0,45)}}</span>
+          <div class="stack-card-spacer"></div>
+          <span class="stack-card-span"><b>Coordinador: </b>{{selectedProject.coordinator}}</span>
+          <div class="stack-card-spacer"></div>
+          <span class="stack-card-span"><b>Participantes: </b>{{selectedProject.participants.length}}</span>
+          <div class="stack-card-spacer"></div>
+          <div class="stack-card-btn">
+            <nuxt-link class="stack-card-btn-link"
+                       :to="{name: 'innovacion-docente-proyectos-innovacion-id', params: {id: selectedProject.id}}"
+                       tag="a">Ver Proyecto
+            </nuxt-link>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -15,212 +36,171 @@ export default {
       context: null,
       width: null,
       height: null,
-      circles: []
+      center: null,
+      radius: null,
+      circles: [],
+      selectedProject: null,
+      isSelectedProject: false
     };
   },
   mounted() {
     // init canvas
     this.canvas = this.$refs.canvas;
     this.context = this.canvas.getContext("2d");
-    this.width = this.canvas.width = window.innerWidth;
-    this.height = this.canvas.height = window.innerHeight;
+    this.size = this.canvas.width = this.canvas.height = 720;
+    this.radius = {
+      min: 400 / 2,
+      max: 600 / 2
+    };
+    this.center = this.size / 2;
     this.init();
-    this.canvas.addEventListener("mousedown", this.selectProyect);
+    this.canvas.addEventListener("mousedown", this.selectProject);
     window.requestAnimationFrame(() => this.animate());
   },
   methods: {
-    selectProyect(event) {
-      // get mouse position
-      let rect = this.canvas.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-
-      // get if mouse touches circe
-      for (let i = 0; i < this.circles.length; i++) {
-        const circle = this.circles[i];
-        if (
-          this.getDistance(x, y, circle.position.x, circle.position.y) <=
-          circle.radius
-        ) {
-          if (circle.active) continue;
-          circle.active = true;
-          // search for old active circle
-          for (let j = 0; j < this.circles.length; j++) {
-            const tempCircle = this.circles[j];
-            if (tempCircle.data.id == circle.data.id) continue;
-            if (tempCircle.active) tempCircle.active = false;
-          }
-        }
-      }
-    },
     init() {
       // create circles
       for (let i = 0; i < this.proyectos.length; i++) {
-        const minRadius = this.randomIntFromRange(35, 50);
-        const maxRadius = 150;
-        const radius = i == 0 ? maxRadius : minRadius;
-        let x = this.randomIntFromRange(radius, this.width - radius);
-        let y = this.randomIntFromRange(radius, this.height - radius);
-
-        // making sure circles dont overlap
-        for (let j = 0; j < this.circles.length; j++) {
-          if (
-            this.getDistance(
-              x,
-              y,
-              this.circles[j].position.x,
-              this.circles[j].position.y
-            ) <
-            radius + this.circles[j].radius
-          ) {
-            // generate new values
-            x = this.randomIntFromRange(radius, this.width - radius);
-            y = this.randomIntFromRange(radius, this.height - radius);
-
-            // restart the loop
-            j = -1;
-          }
-        }
-        // push new circle
+        const radius = Math.floor(this.randomIntFromRange(20, 30));
+        // distance from center
+        const distance = this.randomIntFromRange(
+          this.radius.min + radius,
+          this.radius.max - radius
+        );
         this.circles.push({
-          data: {
-            ...this.proyectos[i]
+          data: { ...this.proyectos[i] },
+          distance,
+          bounce: {
+            min: distance - radius,
+            max: distance + radius,
+            minToMax: Math.floor(this.randomIntFromRange(1, 2)) % 2 === 0
           },
-          position: {
-            x,
-            y
-          },
-          velocity: {
-            x: this.randomIntFromRange(-1, 1),
-            y: this.randomIntFromRange(-1, 1)
-          },
+          radians: this.randomIntFromRange(0, Math.PI * 2),
+          velocity: this.randomIntFromRange(1, 5) / 2000,
           radius,
-          minRadius,
-          maxRadius,
-          active: i == 0,
-          mass: 1
+          maxRadius: radius,
+          activeRadius: 0,
+          active: false
         });
       }
+
+      const selectedIndex = Math.floor(
+        this.randomIntFromRange(0, this.circles.length - 1)
+      );
+      this.selectedProject = this.circles[selectedIndex].data;
+      this.circles[selectedIndex].active = true;
     },
     // main loop
     animate() {
-      this.context.clearRect(0, 0, this.width, this.height);
+      this.context.clearRect(0, 0, this.size, this.size);
       // do stuff
-      this.circles.forEach(p => {
-        this.update(p);
-        this.draw(p);
-      });
+      for (let i = 0; i < this.circles.length; i++) {
+        this.update(this.circles[i]);
+        this.draw(this.circles[this.circles.length - i - 1]);
+      }
 
       window.requestAnimationFrame(() => this.animate());
     },
     // draw
     draw(circle) {
-      this.context.beginPath();
-      this.context.arc(
-        circle.position.x,
-        circle.position.y,
-        circle.radius,
-        0,
-        Math.PI * 2,
-        false
-      );
-      this.context.lineWidth = 3;
-      this.context.strokeStyle = this.getAreaColor(circle.data.area);
-      this.context.fillStyle = "#f5f5f5";
-      this.context.fill();
-      this.context.stroke();
-      this.context.closePath();
-    },
-    // update
-    update(circle) {
-      // update size if necesary
-      if (circle.active) {
-        if (circle.radius < circle.maxRadius) circle.radius++;
-      } else if (circle.radius > circle.minRadius) circle.radius--;
-
-      // movement of each particle
-      if (
-        circle.position.x - circle.radius < 0 ||
-        circle.position.x + circle.radius > this.width
-      )
-        circle.velocity.x *= -1;
-      if (
-        circle.position.y - circle.radius < 0 ||
-        circle.position.y + circle.radius > this.height
-      )
-        circle.velocity.y *= -1;
-      circle.position.x += circle.velocity.x;
-      circle.position.y += circle.velocity.y;
-
-      // validate each circle with the others to detect collision
-      for (let i = 0; i < this.circles.length; i++) {
-        const tempCircle = this.circles[i];
-        if (circle.data.id == tempCircle.data.id) continue;
-
-        // if 2 circles are collisioning then resolve it.
-        if (
-          this.getDistance(
-            circle.position.x,
-            circle.position.y,
-            tempCircle.position.x,
-            tempCircle.position.y
-          ) <=
-          circle.radius + tempCircle.radius
-        )
-          this.resolveCollision(circle, tempCircle);
-      }
-    },
-    resolveCollision(circle1, circle2) {
-      const xVelocityDiff = circle1.velocity.x - circle2.velocity.x;
-      const yVelocityDiff = circle1.velocity.y - circle2.velocity.y;
-
-      const xDist = circle2.position.x - circle1.position.x;
-      const yDist = circle2.position.y - circle1.position.y;
-
-      // Prevent accidental overlap of particles
-      if (xVelocityDiff * xDist + yVelocityDiff * yDist >= 0) {
-        // Grab angle between the two colliding particles
-        const angle = -Math.atan2(
-          circle2.position.y - circle1.position.y,
-          circle2.position.x - circle1.position.x
+      if (circle.radius > 1) {
+        this.context.beginPath();
+        this.context.arc(
+          this.center + circle.distance * Math.cos(circle.radians),
+          this.center + circle.distance * Math.sin(circle.radians),
+          circle.radius,
+          0,
+          Math.PI * 2,
+          false
         );
-
-        // Store mass in var for better readability in collision equation
-        const m1 = circle1.mass;
-        const m2 = circle2.mass;
-
-        // Velocity before equation
-        const u1 = this.rotate(circle1.velocity, angle);
-        const u2 = this.rotate(circle2.velocity, angle);
-
-        // Velocity after 1d collision equation
-        const v1 = {
-          x: (u1.x * (m1 - m2)) / (m1 + m2) + (u2.x * 2 * m2) / (m1 + m2),
-          y: u1.y
-        };
-        const v2 = {
-          x: (u2.x * (m1 - m2)) / (m1 + m2) + (u1.x * 2 * m2) / (m1 + m2),
-          y: u2.y
-        };
-
-        // Final velocity after rotating axis back to original location
-        const vFinal1 = this.rotate(v1, -angle);
-        const vFinal2 = this.rotate(v2, -angle);
-
-        // Swap particle velocities for realistic bounce effect
-        circle1.velocity.x = vFinal1.x;
-        circle1.velocity.y = vFinal1.y;
-
-        circle2.velocity.x = vFinal2.x;
-        circle2.velocity.y = vFinal2.y;
+        this.context.lineWidth = 3;
+        this.context.strokeStyle = this.getAreaColor(circle.data.area);
+        this.context.fillStyle = "#f5f5f5";
+        this.context.fill();
+        this.context.stroke();
+        this.context.closePath();
+      }
+      if (circle.active) {
+        this.context.beginPath();
+        this.context.arc(
+          this.center,
+          this.center,
+          circle.activeRadius,
+          0,
+          Math.PI * 2,
+          false
+        );
+        this.context.lineWidth = 3;
+        this.context.strokeStyle = this.getAreaColor(circle.data.area);
+        this.context.fillStyle = "#f5f5f5";
+        this.context.fill();
+        this.context.stroke();
+        this.context.closePath();
       }
     },
-    rotate(velocity, angle) {
-      // Takes velocities and alters them as if the coordinate system they're on was rotated
-      return {
-        x: velocity.x * Math.cos(angle) - velocity.y * Math.sin(angle),
-        y: velocity.x * Math.sin(angle) + velocity.y * Math.cos(angle)
+    update(circle) {
+      if (circle.radius > 1) {
+        circle.radians += circle.velocity;
+        // update distance from center
+        circle.distance += circle.bounce.minToMax
+          ? circle.radius / this.randomIntFromRange(100, 300)
+          : -circle.radius / this.randomIntFromRange(100, 300);
+        if (circle.distance > circle.bounce.max) circle.bounce.minToMax = false;
+        if (circle.distance < circle.bounce.min) circle.bounce.minToMax = true;
+      }
+      // update state of selected circle only selected project
+      if (this.selectedProject.id === circle.data.id) {
+        this.isSelectedProject = circle.active && circle.activeRadius >= 170;
+      }
+      // make sure radius is correct
+      if (circle.active && circle.radius > 0) circle.radius--;
+      else if (circle.radius <= circle.maxRadius) circle.radius++;
+      if (circle.active && circle.activeRadius <= 170) {
+        circle.activeRadius += 2;
+      }
+      // small old active radius
+      if (!circle.active && circle.activeRadius > 0) {
+        circle.activeRadius--;
+      }
+    },
+    selectProject(event) {
+      // get mouse position
+      // offset from center of canvas
+      let rect = this.canvas.getBoundingClientRect();
+      const mouse = {
+        x: event.clientX - rect.left - this.center,
+        y: event.clientY - rect.top - this.center
       };
+      // get if mouse touches circe
+      for (let i = 0; i < this.circles.length; i++) {
+        const circle = this.circles[i];
+
+        const x = circle.distance * Math.cos(circle.radians);
+        const y = circle.distance * Math.sin(circle.radians);
+
+        if (
+          // TODO: add distance to center of each and select closer
+          mouse.x > x - circle.radius &&
+          mouse.x < x + circle.radius &&
+          mouse.y > y - circle.radius &&
+          mouse.y < y + circle.radius
+        ) {
+          // skip interaction if project already selected
+          if (circle.active) continue;
+
+          // work selected project
+          circle.active = true;
+          this.selectedProject = circle.data;
+          // search for actual active project
+          for (let i = 0; i < this.circles.length; i++) {
+            if (this.circles[i].active) {
+              if (this.circles[i].data.id !== this.selectedProject.id)
+                this.circles[i].active = false;
+            }
+          }
+          return;
+        }
+      }
     },
     // utils
     getAreaColor(area) {
@@ -231,7 +211,7 @@ export default {
       return "#ff00ff";
     },
     randomIntFromRange(min, max) {
-      return Math.floor(Math.random() * (max - min + 1) + min);
+      return Math.random() * (max - min + 1) + min;
     },
     getDistance(x1, y1, x2, y2) {
       // pythagoras
@@ -242,3 +222,79 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "assets/variables";
+
+.fade-enter-active {
+  transition: opacity 0.25s ease-out;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-leave-active,
+.fade-leave-to {
+  display: none;
+}
+
+.stack {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  &-canvas {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &-card {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    &-content {
+      border-radius: 50%;
+      width: 340px;
+      height: 340px;
+      align-self: center;
+      display: flex;
+      flex-direction: column;
+    }
+    &-title {
+      display: block;
+      font-size: 20px !important;
+      line-height: 26px;
+      text-align: center;
+      padding-top: 50px;
+      width: 60%;
+      margin: 0 auto;
+    }
+    &-span {
+      width: 80%;
+      margin: 0 auto;
+      font-size: 16px;
+      text-align: center;
+    }
+    &-spacer {
+      height: 13px;
+    }
+
+    &-btn {
+      color: $color-primary;
+      margin-top: auto;
+      text-align: center;
+      padding-bottom: 30px;
+      &-link {
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+        text-decoration: none;
+      }
+    }
+  }
+}
+</style>
+

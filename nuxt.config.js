@@ -85,7 +85,7 @@ module.exports = {
     color: 'white',
     background: "#044a80"
   },
-  mode: 'universal',
+  mode: 'spa',
   manifest: {
     name: 'Innovación Docente',
     lang: 'es',
