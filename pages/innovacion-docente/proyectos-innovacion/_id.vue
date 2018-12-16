@@ -9,20 +9,20 @@
 
     <section class="container">
       <!-- Img - banner -->
-      <div class="banner">
-        <div v-if="proyecto.img"
-             class="banner-img"
-             :style="getBannerPath(proyecto.img)"></div>
-        <div v-else
-             class="banner-img"></div>
+      <div v-if="proyecto.img">
+        <div class="banner">
+          <div class="banner-img"
+               :style="getBannerPath(proyecto.img)"></div>
+        </div>
+        <div class="spacer"></div>
       </div>
-      <div class="spacer"></div>
       <div class="row">
         <div class="col-md-4">
           <!-- proyect type -->
           <h2>{{proyecto.type | proyectoInnovacionType}}</h2>
           <!-- modality -->
-          <h3>Modalidad {{proyecto.modality}}</h3>
+          <h3><b>Modalidad: </b> {{proyecto.modality}}</h3>
+          <div class="spacer"></div>
           <!-- areas -->
           <span v-if="proyecto.area.administrativa ||proyecto.area.biologica ||proyecto.area.sociohumanistica || proyecto.area.tecnica"
                 class="areas">
@@ -172,7 +172,7 @@ export default {
 <style lang="scss" scoped>
 @import "assets/variables";
 @import "assets/header";
-$space-elements: 8px;
+$space-elements: 20px;
 .banner {
   height: 40vh;
   width: 100%;
@@ -196,8 +196,8 @@ h1 {
 }
 
 .spacer {
-  margin-bottom: $space-elements;
-  margin-top: $space-elements;
+  margin-bottom: $space-elements !important;
+  margin-top: $space-elements !important;
 }
 ul {
   margin-bottom: $space-elements;

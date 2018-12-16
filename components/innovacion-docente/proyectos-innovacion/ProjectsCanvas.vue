@@ -14,10 +14,12 @@
         <div class="stack-card-spacer"></div>
         <span class="stack-card-span"><b>Participantes: </b>{{selectedProject.participants.length}}</span>
         <div class="stack-card-spacer"></div>
-        <nuxt-link class="stack-card-btn"
-                   :to="{name: 'innovacion-docente-proyectos-innovacion-id', params: {id: selectedProject.id}}"
-                   tag="span">Ver Proyecto
-        </nuxt-link>
+        <div class="stack-card-btn">
+          <nuxt-link class="stack-card-btn-link"
+                     :to="{name: 'innovacion-docente-proyectos-innovacion-id', params: {id: selectedProject.id}}"
+                     tag="a">Ver Proyecto
+          </nuxt-link>
+        </div>
       </div>
     </div>
   </div>
@@ -105,12 +107,15 @@ export default {
         Math.PI * 2,
         false
       );
-      this.context.lineWidth = 3;
-      this.context.strokeStyle = this.getAreaColor(circle.data.area);
-      this.context.fillStyle = circle.active ? "#f500f5" : "#f5f5f5";
-      this.context.fill();
-      this.context.stroke();
-      this.context.closePath();
+      if (!circle.active) {
+        this.context.lineWidth = 3;
+        this.context.strokeStyle = this.getAreaColor(circle.data.area);
+        this.context.fillStyle = "#f5f5f5";
+        this.context.fill();
+        this.context.stroke();
+        this.context.closePath();
+      } else {
+      }
     },
     update(circle) {
       circle.radians += circle.velocity;
@@ -143,6 +148,10 @@ export default {
           mouse.y > y - circle.radius &&
           mouse.y < y + circle.radius
         ) {
+          // skip interaction if project already selected
+          if (circle.active) continue;
+
+          // work selected project
           circle.active = true;
           this.selectedProject = circle.data;
           // search for actual active project
@@ -194,6 +203,7 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
+
     &-content {
       border-radius: 50%;
       width: 340px;
@@ -224,14 +234,16 @@ export default {
 
     &-btn {
       color: $color-primary;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 500;
-      text-transform: uppercase;
-      text-decoration: none;
       margin-top: auto;
       text-align: center;
       padding-bottom: 30px;
+      &-link {
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+        text-decoration: none;
+      }
     }
   }
 }
