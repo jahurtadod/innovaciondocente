@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-6 background-mustard">
           <div class="liid-info">
-            <h2>Proyectos Actuales</h2>
+            <h2>PROYECTOS ACTUALES</h2>
             <div class="embed-container">
               <iframe :src="'https://www.youtube.com/embed/' + project.videoId"
                       frameborder="0"
@@ -35,17 +35,17 @@ export default {
 };
 </script>
 
-
 <style lang="scss" scoped>
 @import "assets/variables";
 .liid-info {
   padding: 1rem;
-  height: 105vh;
+  height: 100vh;
   display: table-cell;
   vertical-align: middle;
   text-align: center;
   h2 {
-    color: $color-text-secondary;
+    color: $color-primary;
+    letter-spacing: -1px;
   }
   img {
     height: 250px;
@@ -55,14 +55,10 @@ export default {
     text-align: center;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-
-    span {
-      color: $color-secondary;
-    }
   }
 }
 .on-secondary {
-  color: $color-text-secondary;
+  color: $color-primary;
 }
 .background-mustard {
   background: $color-secondary;

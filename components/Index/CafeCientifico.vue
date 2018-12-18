@@ -73,7 +73,6 @@ export default {
   h2 {
     text-align: center;
     text-transform: uppercase;
-    font-weight: 45px;
   }
   p {
     text-align: center;

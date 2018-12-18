@@ -62,6 +62,7 @@ export default {
   padding: 50px;
   text-align: center;
   align-items: center;
+  z-index: 1;
 }
 .img-avatar {
   vertical-align: middle;
