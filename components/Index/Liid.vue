@@ -12,13 +12,13 @@
         <div class="col-md-6 background-mustard">
           <div class="liid-info">
             <h2>PROYECTOS ACTUALES</h2>
-            <div class="embed-container">
+            <!-- <div class="embed-container">
               <iframe :src="'https://www.youtube.com/embed/' + project.videoId"
                       frameborder="0"
                       title="video"
                       allow="autoplay; encrypted-media"
                       allowfullscreen></iframe>
-            </div>
+            </div> -->
             <p class="auto-break on-secondary">{{project.description}}</p>
             <nuxt-link :to="{name: 'innovacion-docente-proyectos-actuales'}"
                        class="btn btn-large btn-primary">Atrevete</nuxt-link>

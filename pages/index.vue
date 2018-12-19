@@ -30,7 +30,7 @@
         </div>
       </div>
     </header>
-    <Cards />
+    <ScrollContainer />
     <CafeCientifico />
     <LiiD :liid='indexData.liid'
           :project='indexData.project' />
@@ -49,6 +49,7 @@ import CafeCientifico from "@/components/Index/CafeCientifico";
 import LiiD from "@/components/Index/Liid";
 import QuienesSomos from "@/components/Index/QuienesSomos";
 import FooterIndex from "@/components/Index/FooterIndex";
+import ScrollContainer from "@/components/Index/ScrollContainer";
 import Suscripcion from "@/components/Suscripcion";
 
 export default {
@@ -76,6 +77,7 @@ export default {
     QuienesSomos,
     CafeCientifico,
     Suscripcion,
+    ScrollContainer,
     FooterIndex
   },
   head() {
